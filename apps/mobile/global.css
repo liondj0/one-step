@@ -4,5 +4,5 @@
 
 
 .btn {
-    @apply bg-button text-forest py-2 px-12 rounded-3xl text-3xl;
+    @apply bg-button text-forest py-2 px-12 rounded-3xl text-3xl font-medium font-nunito font-semibold;
 }

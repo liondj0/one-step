@@ -14,8 +14,8 @@ module.exports = {
         soft: '#fefbf2'
       },
       fontFamily: {
-        libre: ['LibreBaskerville_400Regular'],
-        libreBold: ['LibreBaskerville_700Bold'],
+        libre: ['LibreBaskerville'],
+        nunito: ['Nunito'],
       },
     }
   },

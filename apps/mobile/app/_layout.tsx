@@ -5,6 +5,7 @@ import {storage, StorageKeys} from "@/lib/storage";
 import Onboarding from "@/app/(onboarding)";
 import Main from "@/app/(main)";
 import { useFonts, LibreBaskerville_400Regular, LibreBaskerville_700Bold } from '@expo-google-fonts/libre-baskerville';
+import { Nunito_400Regular, Nunito_700Bold, Nunito_300Light, Nunito_500Medium, Nunito_600SemiBold } from '@expo-google-fonts/nunito';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -17,6 +18,11 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     LibreBaskerville_400Regular,
     LibreBaskerville_700Bold,
+    Nunito_400Regular,
+    Nunito_700Bold,
+    Nunito_300Light,
+    Nunito_500Medium,
+    Nunito_600SemiBold
   });
 
   useEffect(() => {

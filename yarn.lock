@@ -1403,6 +1403,11 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/libre-baskerville/-/libre-baskerville-0.3.1.tgz#dda119f6dbc9be981d366470bc7f4eba277e3a36"
   integrity sha512-lJgpfXBSUccEwM4jpgpmoOgkaZcuWuSOjG1riYgH7XzcsVadu1Td0pKnCRUn6RdGl6lRVywnAFAzQFCNopdvoQ==
 
+"@expo-google-fonts/nunito@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/nunito/-/nunito-0.3.0.tgz#a1542d94eb7d7f7eb98e5fad2abadbe556802f0f"
+  integrity sha512-7vfsuOqBm+MWjiNjWOX6t17nQbj1SN+oWwp8EGShexurF7dss2URRJG3hBlG7cxoGdZm+rw2iY+DSMZSUSlFZA==
+
 "@expo-google-fonts/sora@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/sora/-/sora-0.3.0.tgz#10ea823d92a3638f8fbdf0f3650d0d35978f28ec"
