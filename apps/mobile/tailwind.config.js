@@ -6,10 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        forest: '#228B22',
+        forest: '#4f694c',
         peach: '#FFB199',
         sunbeam: '#FFD966',
         dustysky: '#7DA2A9',
+        button: '#f8f1e1',
+        soft: '#fefbf2'
+      },
+      fontFamily: {
+        libre: ['LibreBaskerville_400Regular'],
+        libreBold: ['LibreBaskerville_700Bold'],
       },
     }
   },
