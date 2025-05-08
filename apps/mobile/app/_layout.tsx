@@ -1,11 +1,9 @@
-import { Stack, SplashScreen} from "expo-router";
+import {Stack, SplashScreen, useRouter} from "expo-router";
 import '../global.css'
 import { useEffect, useState} from "react";
-import {storage, StorageKeys} from "@/lib/storage";
-import Onboarding from "@/app/(onboarding)";
-import Main from "@/app/(main)";
 import { useFonts, LibreBaskerville_400Regular, LibreBaskerville_700Bold } from '@expo-google-fonts/libre-baskerville';
 import { Nunito_400Regular, Nunito_700Bold, Nunito_300Light, Nunito_500Medium, Nunito_600SemiBold } from '@expo-google-fonts/nunito';
+import {useSession} from "@/lib/useSession";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -13,7 +11,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
 
   const [appReady, setAppReady] = useState(false);
-  const [onboardingCompleted, setOnboardingCompleted] = useState({loaded: false, value: false});
+  const {isSessionReady} = useSession()
 
   const [fontsLoaded] = useFonts({
     LibreBaskerville_400Regular,
@@ -27,28 +25,20 @@ export default function RootLayout() {
 
   useEffect(() => {
     async function prepare() {
-      try {
-        if(!fontsLoaded) return;
-        setOnboardingCompleted({loaded: true, value: !! (await storage.get(StorageKeys.ONBOARDING_COMPLETED))});
-        SplashScreen.hide();
-      } catch (e) {
-        console.warn(e);
-        setOnboardingCompleted({loaded: true, value: false});
-      } finally {
-        // Tell the application to render
-        setAppReady(true);
-      }
+      if(!isSessionReady || !fontsLoaded) return;
+      setAppReady(true);
+      await SplashScreen.hideAsync();
     }
 
     prepare();
-  }, [fontsLoaded]);
+  }, [fontsLoaded, isSessionReady]);
 
-  if (!appReady || !onboardingCompleted.loaded) {
+  if (!appReady || !isSessionReady) {
     return null;
   }
 
-  return onboardingCompleted ? <Onboarding/> : <Main/>
+  // if(!onboardingCompleted) router.replace("/(onboarding)");
 
 
-  return <Stack screenOptions={{ headerShown: false }} ></Stack>
+  return <Stack screenOptions={{ headerShown: false }}></Stack>
 }

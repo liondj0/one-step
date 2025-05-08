@@ -12,7 +12,7 @@ export default function Onboarding() {
   const router = useRouter();
 
   const navigateToSignup = () => {
-    router.replace("/(auth)")
+    router.replace("/auth")
   }
 
   return (
