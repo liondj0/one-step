@@ -4,10 +4,16 @@ import {useState} from "react";
 import SecondScreen from "@/components/onboarding/second-screen";
 import Button from "@/components/ui/button";
 import ThirdScreen from "@/components/onboarding/third-screen";
+import {useRouter} from "expo-router";
 
 export default function Onboarding() {
 
   const [step, setStep] = useState(1);
+  const router = useRouter();
+
+  const navigateToSignup = () => {
+    router.replace("/(auth)")
+  }
 
   return (
     <View className="flex-1 flex-col items-center pb-12 pt-20 bg-soft">
@@ -22,7 +28,7 @@ export default function Onboarding() {
         <View className={`h-4 w-4 rounded-[0.5rem] ${step === 3 ? 'bg-forest' : 'bg-button'}`}/>
       </View>
       {step < 3 && <Button className={`mt-0`} onPress={() => setStep(step + 1)}>Continue</Button>}
-      {step === 3 && <Button className={`mt-0`} onPress={() => {}}>Sign up</Button>}
+      {step === 3 && <Button className={`mt-0`} onPress={() => navigateToSignup()}>Sign up</Button>}
     </View>
   );
 }
