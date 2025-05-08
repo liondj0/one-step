@@ -18,7 +18,7 @@ export default function AuthLayout() {
         keyboardShouldPersistTaps="handled"
         className="px-6"
       >
-        <View className="flex-1 items-center justify-start bg-soft pt-24 px-6 min-h-[850px]">
+        <View className="flex-1 items-center justify-start bg-soft pt-20 px-6 min-h-[850px]">
           <Image
             source={require("@/assets/images/logo.png")}
             className={`h-36 mt-3`}
