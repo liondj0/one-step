@@ -25,7 +25,10 @@ export default function AuthLayout() {
             style={{ objectFit: "contain" }}
           />
           <View className="w-full flex-1 bg-soft">
-            <Stack screenOptions={{ headerShown: false }} />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name={"index"} options={{animation: "fade", animationDuration: 200}}/>
+              <Stack.Screen name={"sign-in"} options={{animation: "fade", animationDuration: 200}}/>
+            </Stack>
           </View>
         </View>
       </ScrollView>
