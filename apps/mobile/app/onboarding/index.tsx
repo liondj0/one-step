@@ -1,16 +1,18 @@
-import { View } from "react-native";
+import {View} from "react-native";
 import FirstScreen from "@/components/onboarding/first-screen";
-import { useState } from "react";
+import {useState} from "react";
 import SecondScreen from "@/components/onboarding/second-screen";
 import Button from "@/components/ui/button";
 import ThirdScreen from "@/components/onboarding/third-screen";
-import { useRouter } from "expo-router";
+import {useRouter} from "expo-router";
+import {storage, StorageKeys} from "@/lib/storage";
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
   const router = useRouter();
 
-  const navigateToSignup = () => {
+  const navigateToSignup = async () => {
+    await storage.set(StorageKeys.ONBOARDING_COMPLETED, true);
     router.replace("/auth");
   };
 
