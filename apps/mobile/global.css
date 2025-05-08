@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.heading {
+    @apply text-forest text-5xl font-libreBold tracking-tighter leading-[1.25];
+}

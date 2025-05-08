@@ -1,6 +1,5 @@
-import {useEffect, useState} from "react";
-import {storage, StorageKeys} from "@/lib/storage";
-
+import { useEffect, useState } from "react";
+import { storage, StorageKeys } from "@/lib/storage";
 
 export function useSession() {
   const [isSessionReady, setIsSessionReady] = useState(false);
@@ -10,14 +9,16 @@ export function useSession() {
 
   useEffect(() => {
     const loadState = async () => {
-      setOnboardingCompleted(!!(await storage.get(StorageKeys.ONBOARDING_COMPLETED)));
+      setOnboardingCompleted(
+        !!(await storage.get(StorageKeys.ONBOARDING_COMPLETED)),
+      );
       setIsSessionReady(true);
-    }
-    loadState()
-  })
+    };
+    loadState();
+  });
 
   return {
     isSessionReady,
-    onboardingCompleted
-  }
+    onboardingCompleted,
+  };
 }

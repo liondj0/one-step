@@ -11,7 +11,8 @@ module.exports = {
         sunbeam: '#FFD966',
         dustysky: '#7DA2A9',
         button: '#f8f1e1',
-        soft: '#fefbf2'
+        soft: '#fefbf2',
+        grey: '#d7d7cb',
       },
       fontFamily: {
         libre: ['LibreBaskerville_400Regular'],
