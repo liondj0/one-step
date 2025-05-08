@@ -21,6 +21,10 @@ export const storage = {
   },
 
   set: async <Key extends StorageKeys>(key: Key, value: ValueType<Key>) => {
-    AsyncStorage.setItem(key, JSON.stringify({ value }));
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify({ value }));
+    } catch (e) {
+      console.log(e);
+    }
   },
 };

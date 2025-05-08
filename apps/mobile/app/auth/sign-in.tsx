@@ -1,14 +1,14 @@
-import {Pressable, Text, TextInput, View} from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import { GoogleButton } from "@/components/auth/google-button";
 import Button from "@/components/ui/button";
-import {Link, useRouter} from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function Signup() {
   const router = useRouter();
 
   const navigateToSignup = () => {
-    router.replace('/auth')
-  }
+    router.replace("/auth");
+  };
 
   return (
     <View className="flex-1 bg-soft flex-col items-center px-6">
@@ -34,13 +34,15 @@ export default function Signup() {
         textContentType={`password`}
         className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
       />
-      <Button onPress={() => {}} className={`w-full items-center rounded-2xl`}>Sign in</Button>
+      <Button onPress={() => {}} className={`w-full items-center rounded-2xl`}>
+        Sign in
+      </Button>
       <View className="flex flex-col items-center justify-center w-full">
         <Text className="text-forest font-nunito font-semibold text-center mt-8 text-xl leading-[1.125]">
           Don{"'"}t have an account?
         </Text>
         <Pressable onPress={navigateToSignup}>
-          <Text  className="text-forest font-nunito font-bold text-center text-2xl underline">
+          <Text className="text-forest font-nunito font-bold text-center text-2xl underline">
             Sign up
           </Text>
         </Pressable>

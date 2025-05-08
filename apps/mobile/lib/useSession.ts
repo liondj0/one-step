@@ -9,9 +9,10 @@ export function useSession() {
 
   useEffect(() => {
     const loadState = async () => {
-      setOnboardingCompleted(
-        !!(await storage.get(StorageKeys.ONBOARDING_COMPLETED)),
-      );
+      const isOnboardingCompleted = !!(await storage.get(
+        StorageKeys.ONBOARDING_COMPLETED,
+      ));
+      setOnboardingCompleted(isOnboardingCompleted);
       setIsSessionReady(true);
     };
     loadState();

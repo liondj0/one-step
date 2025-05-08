@@ -1,4 +1,4 @@
-import { Stack, SplashScreen, useRouter } from "expo-router";
+import { Stack, SplashScreen } from "expo-router";
 import "../global.css";
 import { useEffect, useState } from "react";
 import {
@@ -45,8 +45,6 @@ export default function RootLayout() {
   if (!appReady || !isSessionReady) {
     return null;
   }
-
-  // if(!onboardingCompleted) router.replace("/(onboarding)");
 
   return <Stack screenOptions={{ headerShown: false }}></Stack>;
 }
