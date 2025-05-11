@@ -1,8 +1,13 @@
 import { Hono } from 'hono'
+import {DbInit} from "./init/db-init";
+import {RestInit} from "./init/rest-init";
 
 const app = new Hono()
 
-app.get('/', (c) => c.text('Hello from One Step API 🚀'))
-app.get('/groups', (c) => c.json([{ id: 1, name: 'Demo Group' }]))
+const inits = [new DbInit(), new RestInit(app)];
+
+for(const init of inits) {
+  await init.init();
+}
 
 export default app
