@@ -1,26 +1,30 @@
 import {Init} from "./init";
-import { drizzle } from 'drizzle-orm/node-postgres';
+import {Client} from 'pg'
 import config from "../../util/config";
+import {drizzle} from "drizzle-orm/node-postgres";
 
 export class DbInit extends Init {
-  private __db?: ReturnType<typeof drizzle>;
+  private static __client: Client;
+  private static __db: ReturnType<typeof drizzle>
 
 
   constructor() {
     super('Database');
-
   }
 
   protected async __destroyImplementation(): Promise<void> {
-    delete this.__db
+    await DbInit.__client.end();
   }
 
   protected async __initImplementation(): Promise<void> {
-    this.__db = drizzle({...config.database})
+    DbInit.__client = new Client({...config.database});
+    await DbInit.__client.connect();
+    DbInit.__db = drizzle(DbInit.__client);
   }
 
-  get db() {
-    return this.__db;
+  static db() {
+    if(!DbInit.__db) {throw new Error('Database not initialized')}
+    return DbInit.__db;
   }
 
 }
