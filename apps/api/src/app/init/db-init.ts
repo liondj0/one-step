@@ -1,9 +1,10 @@
 import {Init} from "./init";
-import {MikroORM, PostgreSqlDriver, RequestContext, TransactionManager} from '@mikro-orm/postgresql';
+import {MikroORM, RequestContext, TransactionManager} from '@mikro-orm/core';
 import {env} from "../../util/env";
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import {Hono} from "hono";
 import {EntityManager} from "@mikro-orm/core";
+import {PostgreSqlDriver} from "@mikro-orm/postgresql";
 
 export class DbInit extends Init {
 
@@ -26,7 +27,7 @@ export class DbInit extends Init {
   protected async __initImplementation(): Promise<void> {
     this.orm = await MikroORM.init({
       metadataProvider: TsMorphMetadataProvider,
-      entities: ['./dista/entity/**/*.js'],
+      entities: ['./dist/entity/**/*.js'],
       entitiesTs: ['./src/entity/**/*.ts'],
       host: env.database.host,
       port: env.database.port,
