@@ -23,9 +23,19 @@ export default function Signup() {
         <View className="h-[1px] flex-1 bg-grey"></View>
       </View>
       <TextInput
+        placeholder={"First Name"}
+        textContentType={`givenName`}
+        className={`w-full mt-6 bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+      />
+      <TextInput
+        placeholder={"Surname"}
+        textContentType={`familyName`}
+        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+      />
+      <TextInput
         placeholder={"Email"}
         textContentType={`emailAddress`}
-        className={`w-full mt-6 bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
       />
       <TextInput
         secureTextEntry={true}

@@ -5,8 +5,11 @@
     "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "declaration": true
   },
   "include": ["."]
 }
