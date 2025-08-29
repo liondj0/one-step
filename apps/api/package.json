@@ -2,13 +2,21 @@
   "name": "api",
   "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "main": "src/server.ts",
   "scripts": {
     "dev": "bun --hot src/server.ts"
   },
   "dependencies": {
+    "@mikro-orm/core": "^6.5.1",
+    "@mikro-orm/postgresql": "^6.5.1",
+    "@mikro-orm/reflection": "^6.5.1",
+    "@types/jsonwebtoken": "^9.0.10",
+    "crypto": "^1.0.1",
     "hono": "^4.7.9",
+    "jsonwebtoken": "^9.0.2",
     "typescript": "^5.8.3",
+    "uuid": "^11.1.0",
     "zod": "^3.24.4"
   },
   "devDependencies": {
