@@ -6,13 +6,16 @@ export function useSession() {
   // const [accessToken, setAccessToken] = useState(null);
   // const [refreshToken, setRefreshToken] = useState(null);
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [accessToken, setAccessToken] = useState<string | undefined>();
 
   useEffect(() => {
     const loadState = async () => {
       const isOnboardingCompleted = !!(await storage.get(
         StorageKeys.ONBOARDING_COMPLETED,
       ));
+      const accessToken = await storage.get(StorageKeys.ACCESS_TOKEN);
       setOnboardingCompleted(isOnboardingCompleted);
+      setAccessToken(accessToken);
       setIsSessionReady(true);
     };
     loadState();
@@ -21,5 +24,6 @@ export function useSession() {
   return {
     isSessionReady,
     onboardingCompleted,
+    accessToken
   };
 }
