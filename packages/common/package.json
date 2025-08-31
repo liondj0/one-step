@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "dependencies": {
     "date-fns": "^4.1.0",
     "zod": "^4.1.5"
