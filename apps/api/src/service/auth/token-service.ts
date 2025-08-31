@@ -29,10 +29,10 @@ export const createTokens = async (user: User) => {
   }
 }
 
-const refreshAccessToken = async (currentRefreshToken: string) => {
+export const refreshAccessToken = async (currentRefreshToken: string) => {
   const refreshToken = await refreshTokenRepo().findOne({token: currentRefreshToken});
   if(!refreshToken) throw new Error("Invalid refresh token");
   refreshTokenRepo().delete(refreshToken);
-  return createAccessToken(refreshToken.user);
+  return createTokens(refreshToken.user);
 }
 

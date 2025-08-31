@@ -21,3 +21,17 @@ export const signup = async (data: SignupData)=> {
   userRepo().save(user);
   return createTokens(user);
 }
+
+export const login = async (email: string, password: string) => {
+  const existingUser = await userRepo().findOne({email});
+  if (!existingUser) {
+    throw new Error('User not found');
+  }
+  const isPasswordValid = await hashUtil.compare(password, password);
+  if (!isPasswordValid) {
+    throw new Error('Invalid password');
+  }
+  return createTokens(existingUser);
+}
+
+
