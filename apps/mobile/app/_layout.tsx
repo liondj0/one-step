@@ -14,6 +14,7 @@ import {
   Nunito_600SemiBold,
 } from "@expo-google-fonts/nunito";
 import { useSession } from "@/lib/useSession";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -21,6 +22,8 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [appReady, setAppReady] = useState(false);
   const { isSessionReady } = useSession();
+
+  const queryClient = new QueryClient();
 
   const [fontsLoaded] = useFonts({
     LibreBaskerville_400Regular,
@@ -46,5 +49,7 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }}></Stack>;
+  return <QueryClientProvider client={queryClient}>
+    <Stack screenOptions={{ headerShown: false }}></Stack>
+  </QueryClientProvider>
 }

@@ -3,13 +3,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export enum StorageKeys {
   ONBOARDING_COMPLETED = "onboarding-completed",
   ONBOARDING_STEP = "onboarding-step",
+  ACCESS_TOKEN = "access-token",
+  REFRESH_TOKEN = "refresh-token",
 }
 
-type ValueType<Key> = Key extends StorageKeys.ONBOARDING_COMPLETED
-  ? boolean
-  : Key extends StorageKeys.ONBOARDING_STEP
-    ? number
-    : never;
+type ValueType<Key> =
+  Key extends StorageKeys.ONBOARDING_COMPLETED ? boolean
+  : Key extends StorageKeys.ONBOARDING_STEP ? number
+  : Key extends StorageKeys.ACCESS_TOKEN ? string
+  : Key extends StorageKeys.REFRESH_TOKEN ? string
+  : never;
 
 export const storage = {
   get: async <Key extends StorageKeys>(

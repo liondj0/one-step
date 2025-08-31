@@ -1,7 +1,24 @@
-import { Pressable, Text, TextInput, View } from "react-native";
-import { GoogleButton } from "@/components/auth/google-button";
+import {Pressable, Text, View} from "react-native";
+import {GoogleButton} from "@/components/auth/google-button";
 import Button from "@/components/ui/button";
-import { Link, useRouter } from "expo-router";
+import {useRouter} from "expo-router";
+import {zodResolver} from '@hookform/resolvers/zod';
+import {FormProvider, useForm} from "react-hook-form";
+import {SignupData, signupDataSchema} from "@one-step/common/dto/auth/signup-data";
+import {z} from "zod";
+import FormInput from "@/components/ui/form/form-input";
+import {useMutation} from "@tanstack/react-query";
+import {auth} from "@/lib/api/auth";
+import {storage, StorageKeys} from "@/lib/storage";
+
+const signupWithConfirmSchema = signupDataSchema
+  .extend({
+    confirmPassword: z.string().min(8, 'Min 8 characters'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords must match',
+  });
 
 export default function Signup() {
   const router = useRouter();
@@ -9,6 +26,20 @@ export default function Signup() {
   const navigateToSignIn = () => {
     router.replace("/auth/sign-in");
   };
+
+  const methods = useForm<SignupData & {confirmPassword: string}>({
+    resolver: zodResolver(signupWithConfirmSchema),
+    mode: 'onBlur',
+  });
+
+  const signup = async (data: SignupData) => {
+    const {accessToken, refreshToken} = await auth.signup(data);
+    await storage.set(StorageKeys.ACCESS_TOKEN, accessToken)
+    await storage.set(StorageKeys.REFRESH_TOKEN, refreshToken)
+  }
+
+  const mutation = useMutation({mutationFn: signup,})
+
   return (
     <View className="flex-1 bg-soft flex-col items-center px-6">
       <Text className="heading text-center w-6/8 mt-6 mb-6">
@@ -22,36 +53,18 @@ export default function Signup() {
         </Text>
         <View className="h-[1px] flex-1 bg-grey"></View>
       </View>
-      <TextInput
-        placeholder={"First Name"}
-        textContentType={`givenName`}
-        className={`w-full mt-6 bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
-      />
-      <TextInput
-        placeholder={"Surname"}
-        textContentType={`familyName`}
-        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
-      />
-      <TextInput
-        placeholder={"Email"}
-        textContentType={`emailAddress`}
-        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
-      />
-      <TextInput
-        secureTextEntry={true}
-        placeholder={"Password"}
-        textContentType={`password`}
-        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
-      />
-      <TextInput
-        secureTextEntry={true}
-        placeholder={"Repeat Password"}
-        textContentType={`password`}
-        className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
-      />
-      <Button onPress={() => {}} className={`w-full items-center rounded-2xl`}>
-        Sign up
-      </Button>
+      <FormProvider {...methods}>
+        <>
+          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey mt-6`} name="firstName" placeholder="First name" />
+          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="lastName" placeholder="First name" />
+          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="email" placeholder="Email" keyboardType="email-address" />
+          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="password" placeholder="Password" />
+          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="confirmPassword" placeholder="Repeat password" />
+          <Button onPress={methods.handleSubmit(({confirmPassword, ...signupData}) => mutation.mutate(signupData))} className={`w-full items-center rounded-2xl`}>
+            Sign up
+          </Button>
+        </>
+      </FormProvider>
       <View className="flex flex-col items-center justify-center w-full">
         <Text className="text-forest font-nunito font-semibold text-center mt-8 text-xl leading-[1.125]">
           Already have an account?
