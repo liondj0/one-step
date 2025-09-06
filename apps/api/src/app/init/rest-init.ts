@@ -2,6 +2,7 @@ import {Init} from "./init";
 import {AuthController} from "../../controller/auth-controller";
 import {Server} from "../../types/server";
 import {registerRouter} from "../../util/middleware/router-util";
+import {AppError} from "../../util/error";
 
 export class RestInit extends Init {
 
@@ -15,7 +16,31 @@ export class RestInit extends Init {
   }
 
   protected async __initImplementation(): Promise<void> {
+    this.initErrorHandling();
+    this.initLogging();
     this.__addRoutes();
+  }
+
+  initLogging() {
+    this.__app.use(async (context, next) => {
+      console.log(context.req.method, context.req.path)
+      return await next();
+    })
+  }
+
+  initErrorHandling() {
+    this.__app.use(async (context, next) => {
+      try {
+        return await next();
+      } catch (e) {
+        if(e instanceof AppError) {
+          context.status(e.statusCode)
+        } else {
+          context.status(500)
+        }
+        return context.json({message: (e as any).message ?? `Ugh, something went wrong. 👀`});
+      }
+    })
   }
 
   private __addRoutes() {

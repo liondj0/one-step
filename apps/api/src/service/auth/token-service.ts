@@ -7,6 +7,7 @@ import {dateUtil} from "../../../../../packages/common/util/date";
 import {refreshTokenRepo} from "../../repo/refresh-token-repo";
 import {UserEntity} from "../../entity/user-entity";
 import {jwtUtil} from "../../util/jwt-util";
+import {UnauthorizedError} from "../../util/error";
 
 
 export const createRefreshToken = (user: User) => {
@@ -29,7 +30,7 @@ export const createTokens = async (user: User) => {
 
 export const refreshAccessToken = async (currentRefreshToken: string) => {
   const refreshToken = await refreshTokenRepo().findOne({token: currentRefreshToken});
-  if(!refreshToken) throw new Error("Invalid refresh token");
+  if(!refreshToken) throw new UnauthorizedError("Invalid refresh token");
   refreshTokenRepo().delete(refreshToken);
   return createTokens(refreshToken.user);
 }
