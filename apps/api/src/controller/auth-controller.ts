@@ -1,10 +1,12 @@
-import {GET, POST} from "../util/router-util";
+import {GET, POST, USE} from "../util/router-util";
 import {BaseController} from "./base-controller";
 import {type Context} from "hono";
 import {login, signup} from "../service/auth/auth-service";
 import {type EndpointContext} from "../types/server";
 import {Transactional} from "../util/transaction-util";
 import {refreshAccessToken} from "../service/auth/token-service";
+import {authMiddleware} from "../util/auth-util";
+import {getSessionContext} from "../util/session-util";
 
 export class AuthController extends BaseController {
 
@@ -36,4 +38,9 @@ export class AuthController extends BaseController {
     return await refreshAccessToken(refreshToken);
   }
 
+  @GET('/test')
+  @USE(authMiddleware)
+  async test(context: EndpointContext) {
+    return {success: true}
+  }
 }

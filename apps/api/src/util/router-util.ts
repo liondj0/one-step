@@ -1,10 +1,12 @@
 import {BaseController} from "../controller/base-controller";
-import {Context, Hono, Next} from "hono";
+import {Context, Hono, MiddlewareHandler, Next} from "hono";
 import {ServerEnv} from "../types/server";
+
+export type RouteHandler = (context: Context, next: Next) => Promise<any>;
 
 export type RouteMetadata = [
   path: string,
-  handler: (context: Context<ServerEnv, RouteMetadata[0]>, next?: Next) => Promise<any>
+  ...handlers: RouteHandler[],
 ]
 
 export type RouterMetadata = {
@@ -15,7 +17,7 @@ export type RouterMetadata = {
 }
 
 const routeCallback = (handler: RouteMetadata[1]) => {
-  return async (context: Context<ServerEnv, RouteMetadata[0]>, next?: Next) => {
+  return async (context: Context, next: Next) => {
     return context.json(await handler(context, next));
   }
 }
@@ -27,45 +29,29 @@ const initMetadata = <Controller extends BaseController>(target: Controller) => 
   }
 }
 
-export const GET = (path: string): MethodDecorator => {
+const decoratorBuilder = (path: string, method: keyof RouterMetadata): MethodDecorator => {
   return (<Controller extends BaseController>(target: Controller, key: keyof Controller, descriptor: TypedPropertyDescriptor<any>) => {
     const handler = descriptor.value as RouteMetadata[1];
     initMetadata(target);
     const router = Reflect.getMetadata("router", target) as RouterMetadata;
-    router.get.push([path, routeCallback(handler)]);
+    const middleware = Reflect.getMetadata("middleware", target.constructor, key as string) as RouteHandler[] || [];
+    router[method].push([path, ...middleware, routeCallback(handler)]);
     Reflect.defineMetadata("router", router, target.constructor);
   }) as MethodDecorator
 }
 
-export const POST = (path: string): MethodDecorator => {
-  console.log("called post")
-  return (<Controller extends BaseController>(target: Controller, key: keyof Controller, descriptor: TypedPropertyDescriptor<any>) => {
-    const handler = descriptor.value as RouteMetadata[1];
-    initMetadata(target);
-    const router = Reflect.getMetadata("router", target) as RouterMetadata;
-    router.post.push([path, routeCallback(handler)]);
-    Reflect.defineMetadata("router", router, target.constructor);
-  }) as MethodDecorator
-}
+export const GET = (path: string) => decoratorBuilder(path, "get");
 
-export const PATCH = (path: string): MethodDecorator => {
-  return (<Controller extends BaseController>(target: Controller, key: keyof Controller, descriptor: TypedPropertyDescriptor<any>) => {
-    const handler = descriptor.value as RouteMetadata[1];
-    initMetadata(target);
-    const router = Reflect.getMetadata("router", target) as RouterMetadata;
-    router.patch.push([path, routeCallback(handler)]);
-    Reflect.defineMetadata("router", router, target.constructor);
-  }) as MethodDecorator
-}
+export const POST = (path: string) => decoratorBuilder(path, "post")
 
-export const DELETE = (path: string): MethodDecorator => {
-  return (<Controller extends BaseController>(target: Controller, key: keyof Controller, descriptor: TypedPropertyDescriptor<any>) => {
-    const handler = descriptor.value as RouteMetadata[1];
-    initMetadata(target);
-    const router = Reflect.getMetadata("router", target) as RouterMetadata;
-    router.delete.push([path, routeCallback(handler)]);
-    Reflect.defineMetadata("router", router, target.constructor);
-  }) as MethodDecorator
+export const PATCH = (path: string) => decoratorBuilder(path, "patch")
+
+export const DELETE = (path: string) => decoratorBuilder(path, "delete");
+
+export const USE = (...middlewares: RouteHandler[])=> {
+  return (target: any, propertyKey: string) => {
+    Reflect.defineMetadata("middleware", middlewares, target.constructor, propertyKey);
+  }
 }
 
 export const registerRouter = <Controller extends BaseController>(target: { new(): Controller }): [string, Hono] => {

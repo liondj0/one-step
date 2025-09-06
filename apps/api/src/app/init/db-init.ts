@@ -42,10 +42,10 @@ export class DbInit extends Init {
       context.set('entityManager', entityManager)
       await RequestContext.create(entityManager, next);
     });
-    if(env.environment === 'development') {
-      await this.orm.getSchemaGenerator().refreshDatabase();
-      await this.orm.getSchemaGenerator().updateSchema();
-    }
+    // if(env.environment === 'development') {
+    //   await this.orm.getSchemaGenerator().refreshDatabase();
+    //   await this.orm.getSchemaGenerator().updateSchema();
+    // }
   }
 
 }

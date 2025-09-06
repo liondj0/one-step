@@ -6,10 +6,8 @@ import {hashUtil} from "../../util/hash-util";
 import {dateUtil} from "../../../../../packages/common/util/date";
 import {refreshTokenRepo} from "../../repo/refresh-token-repo";
 import {UserEntity} from "../../entity/user-entity";
+import {jwtUtil} from "../../util/jwt-util";
 
-export const createAccessToken = (user: User) => {
-  return jwt.sign({user}, env.token.secret, {expiresIn: 1000000});
-}
 
 export const createRefreshToken = (user: User) => {
   const refreshToken = new RefreshTokenEntity();
@@ -25,7 +23,7 @@ export const createRefreshToken = (user: User) => {
 export const createTokens = async (user: User) => {
   return {
     refreshToken: createRefreshToken(user),
-    accessToken: createAccessToken(user),
+    accessToken: jwtUtil.createToken({user}),
   }
 }
 
