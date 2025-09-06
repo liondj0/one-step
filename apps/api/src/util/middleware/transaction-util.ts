@@ -1,7 +1,7 @@
-import {BaseController} from "../controller/base-controller";
+import {BaseController} from "../../controller/base-controller";
 import {RequestContext} from "@mikro-orm/core";
 import {Context, Next} from "hono";
-import {ServerEnv} from "../types/server";
+import {ServerEnv} from "../../types/server";
 
 
 export const Transactional = (): MethodDecorator => {

@@ -1,6 +1,6 @@
-import {BaseController} from "../controller/base-controller";
+import {BaseController} from "../../controller/base-controller";
 import {Context, Hono, MiddlewareHandler, Next} from "hono";
-import {ServerEnv} from "../types/server";
+import {ServerEnv} from "../../types/server";
 
 export type RouteHandler = (context: Context, next: Next) => Promise<any>;
 

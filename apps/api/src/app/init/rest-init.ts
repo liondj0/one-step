@@ -1,7 +1,7 @@
 import {Init} from "./init";
 import {AuthController} from "../../controller/auth-controller";
 import {Server} from "../../types/server";
-import {registerRouter} from "../../util/router-util";
+import {registerRouter} from "../../util/middleware/router-util";
 
 export class RestInit extends Init {
 

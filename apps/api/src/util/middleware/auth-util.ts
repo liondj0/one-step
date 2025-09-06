@@ -1,8 +1,8 @@
 import {Context, Next} from "hono";
-import {ServerEnv} from "../types/server";
-import {jwtUtil} from "./jwt-util";
-import {startSessionContext} from "./session-util";
-import {userRepo} from "../repo/user-repo";
+import {ServerEnv} from "../../types/server";
+import {jwtUtil} from "../jwt-util";
+import {startSessionContext} from "../session-util";
+import {userRepo} from "../../repo/user-repo";
 
 
 export const authMiddleware = async (context: Context<ServerEnv>, next: Next) => {

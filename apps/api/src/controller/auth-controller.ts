@@ -1,11 +1,11 @@
-import {GET, POST, USE} from "../util/router-util";
+import {GET, POST, USE} from "../util/middleware/router-util";
 import {BaseController} from "./base-controller";
 import {type Context} from "hono";
 import {login, signup} from "../service/auth/auth-service";
 import {type EndpointContext} from "../types/server";
-import {Transactional} from "../util/transaction-util";
+import {Transactional} from "../util/middleware/transaction-util";
 import {refreshAccessToken} from "../service/auth/token-service";
-import {authMiddleware} from "../util/auth-util";
+import {authMiddleware} from "../util/middleware/auth-util";
 import {getSessionContext} from "../util/session-util";
 
 export class AuthController extends BaseController {
