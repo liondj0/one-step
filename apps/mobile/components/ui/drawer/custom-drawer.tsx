@@ -1,7 +1,8 @@
 import { Drawer } from "expo-router/drawer";
-import {Pressable, Text, View} from "react-native";
+import {Pressable, Text, View, StyleSheet} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {CustomDrawerContent} from "@/components/ui/drawer/custom-drawer-content";
+import {BlurView} from "expo-blur";
 
 
 export const CustomDrawer = () => {
@@ -13,6 +14,30 @@ export const CustomDrawer = () => {
         paddingBottom: 20,
         height: 140,
       },
+
+      headerTransparent: true,
+      // Replace the header background with a blur + soft tint overlay
+      headerBackground: () => (
+        <View style={StyleSheet.absoluteFill}>
+          <BlurView
+            intensity={35}        // 0–100; tweak to taste
+            tint="light"          // "light" | "dark" | "default"
+            style={StyleSheet.absoluteFill}
+          />
+          {/* extra warmth: add a faint peach tint over the blur */}
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              { backgroundColor: "rgba(255,177,153,0.18)" }, // peach w/ alpha
+            ]}
+          />
+        </View>
+      ),
+      headerShadowVisible: false,
+      headerTitleStyle: { color: "#4f694c" },
+      headerTintColor: "#4f694c",
+      sceneContainerStyle: { backgroundColor: "transparent" },
+
       headerTitle: '',
       headerLeft: () => (
         <View className={`flex items-center flex-row`}>
@@ -35,8 +60,8 @@ export const CustomDrawer = () => {
           style={{ paddingHorizontal: 12, marginRight: 6 }}
           hitSlop={10}
         >
-          <View className={`bg-sunbeam rounded-full p-2`}>
-            <Text>🙈</Text>
+          <View className={`bg-forest/80 rounded-full h-12 w-12 flex items-center justify-center`}>
+            <Text className={`text-2xl`}>🙈</Text>
           </View>
         </Pressable>
       ),
