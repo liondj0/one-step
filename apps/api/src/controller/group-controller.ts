@@ -16,7 +16,8 @@ export class GroupController extends BaseController {
   }
 
   @GET('/')
-  async getGroups(context: EndpointContext) {
+  @USE(authMiddleware)
+  async getMyGroups() {
     return groupRepo().find();
   }
 

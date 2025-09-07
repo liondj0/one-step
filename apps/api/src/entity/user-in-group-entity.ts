@@ -9,8 +9,9 @@ import {UserInGroupRole} from "../enum/user-in-group-role";
 export class UserInGroupEntity extends BaseEntity {
 
 
-  constructor() {
+  constructor({group, user, ...scalars}: Partial<UserInGroupEntity> = {}) {
     super();
+    Object.assign(this, scalars)
   }
 
   @ManyToOne({entity: () => UserEntity, fieldName: 'userId'})

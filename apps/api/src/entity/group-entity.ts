@@ -6,9 +6,9 @@ import {UserInGroupEntity} from "./user-in-group-entity";
 @Entity({tableName: 'groups'})
 export class GroupEntity extends BaseEntity {
 
-  constructor(partial?: Partial<GroupEntity>) {
+  constructor({usersInGroup, ...scalars}: Partial<GroupEntity> = {}) {
     super();
-    if(partial) Object.assign(this, partial)
+    Object.assign(this, scalars)
   }
 
   @Property()

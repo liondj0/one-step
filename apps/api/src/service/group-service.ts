@@ -9,22 +9,17 @@ import {getUserInSession} from "../util/session-util";
 
 
 export const createGroup = async (params: CreateGroupDto) => {
-  const group = new GroupEntity();
-  group.name = params.name;
-  group.description = params.description;
-  group.isPublic = params.isPublic;
+  const group = new GroupEntity(params);
   groupRepo().save(group);
 
   const userInGroup = new UserInGroupEntity();
   userInGroup.user = getUserInSession();
   userInGroup.group = group;
   userInGroup.role = UserInGroupRole.ADMIN;
-  userInGroup.status = UserInGroupStatus.ACTIVE;
-
+   userInGroup.status = UserInGroupStatus.ACTIVE;
   userInGroupRepo().save(userInGroup);
 
   return group;
-
 }
 
 

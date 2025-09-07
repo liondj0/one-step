@@ -38,9 +38,4 @@ export class AuthController extends BaseController {
     return await refreshAccessToken(refreshToken);
   }
 
-  @GET('/test')
-  @USE(authMiddleware)
-  async test(context: EndpointContext) {
-    return {success: true}
-  }
 }
