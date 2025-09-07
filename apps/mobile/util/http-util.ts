@@ -39,12 +39,12 @@ export const httpClientBuilder = (
   },
   post: async <Result, Body>(url: string, body: Body) => {
     const axiosCall = () =>
-      axios.post<Result>(`${prefix}${url}`, { body, headers });
+      axios.post<Result>(`${prefix}${url}`, body, {headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
   },
   patch: async <Result, Body>(url: string, body: Body) => {
     const axiosCall = () =>
-      axios.patch<Result>(`${prefix}${url}`, { body, headers });
+      axios.patch<Result>(`${prefix}${url}`, body, { headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
   },
   delete: async <Result>(url: string) => {

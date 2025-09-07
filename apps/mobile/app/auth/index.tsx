@@ -11,8 +11,7 @@ import {
 import { z } from "zod";
 import FormInput from "@/components/ui/form/form-input";
 import { useMutation } from "@tanstack/react-query";
-import { auth } from "@/lib/api/auth";
-import { storage, StorageKeys } from "@/lib/storage";
+import {authService} from "@/lib/service/auth-service";
 
 const signupWithConfirmSchema = signupDataSchema
   .extend({
@@ -36,9 +35,12 @@ export default function Signup() {
   });
 
   const signup = async (data: SignupData) => {
-    const { accessToken, refreshToken } = await auth.signup(data);
-    await storage.set(StorageKeys.ACCESS_TOKEN, accessToken);
-    await storage.set(StorageKeys.REFRESH_TOKEN, refreshToken);
+    try {
+      await authService.signup(data);
+      router.replace("/(main)");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const mutation = useMutation({ mutationFn: signup });

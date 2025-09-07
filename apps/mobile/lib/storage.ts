@@ -17,6 +17,9 @@ type ValueType<Key> = Key extends StorageKeys.ONBOARDING_COMPLETED
         ? string
         : never;
 
+type Listener = (key: StorageKeys) => void;
+const listeners = new Set<Listener>();
+
 export const storage = {
   get: async <Key extends StorageKeys>(
     key: Key,
@@ -29,8 +32,23 @@ export const storage = {
   set: async <Key extends StorageKeys>(key: Key, value: ValueType<Key>) => {
     try {
       await AsyncStorage.setItem(key, JSON.stringify({ value }));
+      listeners.forEach((l) => l(key));
     } catch (e) {
       console.log(e);
     }
+  },
+  remove: async (key: StorageKeys) => {
+    try {
+      await AsyncStorage.removeItem(key);
+      listeners.forEach((l) => l(key));
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  subscribe(listener: Listener) {
+    listeners.add(listener);
+    return () => {
+      listeners.delete(listener)
+    };
   },
 };

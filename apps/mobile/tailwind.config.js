@@ -13,6 +13,7 @@ module.exports = {
         button: '#f8f1e1',
         soft: '#fefbf2',
         grey: '#d7d7cb',
+        danger: '#e7000b'
       },
       fontFamily: {
         libre: ['LibreBaskerville_400Regular'],
