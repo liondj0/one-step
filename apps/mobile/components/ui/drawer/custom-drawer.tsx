@@ -41,18 +41,5 @@ export const CustomDrawer = () => {
         </Pressable>
       ),
     })}
-  >
-    <Drawer.Screen
-      name="index"
-      options={{ title: "Home" }}
-    />
-    <Drawer.Screen
-      name="groups"
-      options={{ title: "Groups" }}
-    />
-    <Drawer.Screen
-      name="settings"
-      options={{ title: "Settings" }}
-    />
-  </Drawer>
+  />
 }

@@ -6,7 +6,7 @@ import {View, Text, Pressable} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useSession} from "@/lib/useSession";
 import {authService} from "@/lib/service/auth-service";
-import {useRouter} from "expo-router";
+import {Href, router} from "expo-router";
 
 const colors = {
   forest: "#4f694c",
@@ -20,11 +20,15 @@ const colors = {
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps)=> {
 
-  const router = useRouter();
 
   const signOut = async () => {
     await authService.signOut();
-    router.replace("/auth");
+    router.navigate("/auth/sign-in");
+  }
+
+  const go = async (href: Href) => {
+    router.navigate(href);
+    props.navigation.closeDrawer();
   }
 
 
@@ -42,15 +46,18 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps)=> {
           <Text>Hi, {user?.firstName} 👋</Text>
         </View>
         <View className={`mt-20 ml-4`}>
-          <View className={`flex flex-row mb-8 items-center`}>
-            <View className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}>
-              <MaterialCommunityIcons name={`bullseye`} color={colors.forest} size={28}></MaterialCommunityIcons>
+          <Pressable onPress={() => go("/")}>
+            <View className={`flex flex-row mb-8 items-center`}>
+              <View className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}>
+                <MaterialCommunityIcons name={`bullseye`} color={colors.forest} size={28}></MaterialCommunityIcons>
+              </View>
+              <View>
+                <Text className={`text-forest text-2xl`}>My Goals</Text>
+                <Text className={`text-forest/50 text-md`}>Track your progress</Text>
+              </View>
             </View>
-            <View>
-              <Text className={`text-forest text-2xl`}>My Goals</Text>
-              <Text className={`text-forest/50 text-md`}>Track your progress</Text>
-            </View>
-          </View>
+          </Pressable>
+          <Pressable onPress={() => go("/groups")}>
           <View className={`flex flex-row mb-8 items-center`}>
             <View className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}>
               <MaterialCommunityIcons name={`account-group`} color={colors.forest} size={28}></MaterialCommunityIcons>
@@ -60,6 +67,8 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps)=> {
               <Text className={`text-forest/50 text-md`}>Connect with others</Text>
             </View>
           </View>
+          </Pressable>
+          <Pressable onPress={() => go("/health")}>
           <View className={`flex flex-row mb-8 items-center`}>
             <View className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}>
               <MaterialCommunityIcons name={`heart-outline`} color={colors.forest} size={28}></MaterialCommunityIcons>
@@ -69,15 +78,18 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps)=> {
               <Text className={`text-forest/50 text-md`}>Mind & body care</Text>
             </View>
           </View>
+          </Pressable>
+          <Pressable onPress={() => go("/settings")}>
           <View className={`flex flex-row mb-8 items-center`}>
             <View className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}>
               <MaterialCommunityIcons name={`cog-outline`} color={colors.forest} size={28}></MaterialCommunityIcons>
             </View>
             <View>
-              <Text className={`text-forest text-2xl`}>My Goals</Text>
-              <Text className={`text-forest/50 text-md`}>Track your progress</Text>
+              <Text className={`text-forest text-2xl`}>App preferences</Text>
+              <Text className={`text-forest/50 text-md`}>Make it your own</Text>
             </View>
           </View>
+          </Pressable>
         </View>
         <View className={`mt-auto border-t border-t-peach/30 pt-12`}>
           <Pressable onPress={signOut}>

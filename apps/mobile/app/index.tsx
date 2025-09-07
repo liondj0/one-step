@@ -7,5 +7,5 @@ export default function Index() {
   if (!isSessionReady) return null;
   if (accessToken) return <Redirect href={"/(main)"} />;
   if (!onboardingCompleted) return <Redirect href={`/onboarding`} />;
-  return <Redirect href={`/auth`} />;
+  return <Redirect href={`/auth/sign-in`} />;
 }
