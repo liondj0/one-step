@@ -3,6 +3,8 @@ import {AuthController} from "../../controller/auth-controller";
 import {Server} from "../../types/server";
 import {registerRouter} from "../../util/middleware/router-util";
 import {AppError} from "../../util/error";
+import {GroupController} from "../../controller/group-controller";
+import {BaseController} from "../../controller/base-controller";
 
 export class RestInit extends Init {
 
@@ -33,6 +35,7 @@ export class RestInit extends Init {
       try {
         return await next();
       } catch (e) {
+        console.error(e)
         if(e instanceof AppError) {
           context.status(e.statusCode)
         } else {
@@ -50,8 +53,8 @@ export class RestInit extends Init {
 
 
   private registerRouters() {
-    [AuthController].forEach(controller => {
-      this.__app.route(...registerRouter(controller))
+    [AuthController, GroupController].forEach(controller => {
+      this.__app.route(...registerRouter(controller as { new(): BaseController }))
     });
   }
 
