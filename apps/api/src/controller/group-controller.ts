@@ -8,6 +8,7 @@ import {createGroupSchema} from "../../../../packages/common/dto/group";
 import {createGroup} from "../service/group-service";
 import {Transactional} from "../util/middleware/transaction-util";
 import {groupRepo} from "../repo/group-repo";
+import {getUserInSession} from "../util/session-util";
 
 export class GroupController extends BaseController {
 
@@ -18,7 +19,7 @@ export class GroupController extends BaseController {
   @GET('/')
   @USE(authMiddleware)
   async getMyGroups() {
-    return groupRepo().find();
+    return groupRepo().find({userId: getUserInSession().id});
   }
 
 

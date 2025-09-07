@@ -11,10 +11,6 @@ export abstract class BaseRepo<Entity extends BaseEntity>  {
     return (RequestContext.getEntityManager() as EntityManager)
   }
 
-  find(): Promise<Entity[]> {
-    return this.entityManager.find(this.entity, {})
-  }
-
   findById(id: string): Promise<Entity> {
     return this.entityManager.findOne(this.entity, id)
   }
