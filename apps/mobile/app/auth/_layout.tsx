@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import {FormProvider, useForm} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function AuthLayout() {
-  const methods = useForm()
+  const methods = useForm();
 
   return (
     <FormProvider {...methods}>

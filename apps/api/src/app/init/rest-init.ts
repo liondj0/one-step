@@ -1,17 +1,15 @@
-import {Init} from "./init";
-import {AuthController} from "../../controller/auth-controller";
-import {Server} from "../../types/server";
-import {registerRouter} from "../../util/middleware/router-util";
-import {AppError} from "../../util/error";
-import {GroupController} from "../../controller/group-controller";
-import {BaseController} from "../../controller/base-controller";
+import { Init } from "./init";
+import { AuthController } from "../../controller/auth-controller";
+import { Server } from "../../types/server";
+import { registerRouter } from "../../util/middleware/router-util";
+import { AppError } from "../../util/error";
+import { GroupController } from "../../controller/group-controller";
+import { BaseController } from "../../controller/base-controller";
 
 export class RestInit extends Init {
-
   constructor(private readonly __app: Server) {
-    super('Rest');
+    super("Rest");
   }
-
 
   protected async __destroyImplementation(): Promise<void> {
     // Nothing here
@@ -25,9 +23,9 @@ export class RestInit extends Init {
 
   initLogging() {
     this.__app.use(async (context, next) => {
-      console.log(context.req.method, context.req.path)
+      console.log(context.req.method, context.req.path);
       return await next();
-    })
+    });
   }
 
   initErrorHandling() {
@@ -35,29 +33,29 @@ export class RestInit extends Init {
       try {
         return await next();
       } catch (e) {
-        console.error(e)
-        if(e instanceof AppError) {
-          context.status(e.statusCode)
+        console.error(e);
+        if (e instanceof AppError) {
+          context.status(e.statusCode);
         } else {
-          context.status(500)
+          context.status(500);
         }
-        return context.json({message: (e as any).message ?? `Ugh, something went wrong. 👀`});
+        return context.json({
+          message: (e as any).message ?? `Ugh, something went wrong. 👀`,
+        });
       }
-    })
-  }
-
-  private __addRoutes() {
-    this.__app.get('/', (c) => c.text('Hello from One Step API 🚀'))
-    this.registerRouters();
-  }
-
-
-  private registerRouters() {
-    [AuthController, GroupController].forEach(controller => {
-      this.__app.route(...registerRouter(controller as { new(): BaseController }))
     });
   }
 
+  private __addRoutes() {
+    this.__app.get("/", (c) => c.text("Hello from One Step API 🚀"));
+    this.registerRouters();
+  }
 
-
+  private registerRouters() {
+    [AuthController, GroupController].forEach((controller) => {
+      this.__app.route(
+        ...registerRouter(controller as { new (): BaseController }),
+      );
+    });
+  }
 }

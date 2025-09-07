@@ -1,6 +1,6 @@
-import React from 'react';
-import { TextInput, Text, View, TextInputProps } from 'react-native';
-import { useController, useFormContext } from 'react-hook-form';
+import React from "react";
+import { TextInput, Text, View, TextInputProps } from "react-native";
+import { useController, useFormContext } from "react-hook-form";
 
 type Props = TextInputProps & { name: string; className?: string };
 
@@ -14,13 +14,17 @@ export default function FormInput({ name, ...props }: Props) {
   return (
     <View className={`w-full`}>
       <TextInput
-        value={value ?? ''}
+        value={value ?? ""}
         onChangeText={onChange}
         onBlur={onBlur}
         autoCapitalize="none"
         {...props}
       />
-      {!!error && <Text style={{ color: 'red' }} className={`mb-2`}>{error.message}</Text>}
+      {!!error && (
+        <Text style={{ color: "red" }} className={`mb-2`}>
+          {error.message}
+        </Text>
+      )}
     </View>
   );
 }

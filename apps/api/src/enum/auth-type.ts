@@ -1,5 +1,4 @@
-
-export enum AuthType{
-  password = 'password',
-   google = 'google',
+export enum AuthType {
+  password = "password",
+  google = "google",
 }

@@ -24,6 +24,6 @@ export function useSession() {
   return {
     isSessionReady,
     onboardingCompleted,
-    accessToken
+    accessToken,
   };
 }

@@ -1,23 +1,26 @@
-import {Pressable, Text, View} from "react-native";
-import {GoogleButton} from "@/components/auth/google-button";
+import { Pressable, Text, View } from "react-native";
+import { GoogleButton } from "@/components/auth/google-button";
 import Button from "@/components/ui/button";
-import {useRouter} from "expo-router";
-import {zodResolver} from '@hookform/resolvers/zod';
-import {FormProvider, useForm} from "react-hook-form";
-import {SignupData, signupDataSchema} from "@one-step/common/dto/auth/signup-data";
-import {z} from "zod";
+import { useRouter } from "expo-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import {
+  SignupData,
+  signupDataSchema,
+} from "@one-step/common/dto/auth/signup-data";
+import { z } from "zod";
 import FormInput from "@/components/ui/form/form-input";
-import {useMutation} from "@tanstack/react-query";
-import {auth} from "@/lib/api/auth";
-import {storage, StorageKeys} from "@/lib/storage";
+import { useMutation } from "@tanstack/react-query";
+import { auth } from "@/lib/api/auth";
+import { storage, StorageKeys } from "@/lib/storage";
 
 const signupWithConfirmSchema = signupDataSchema
   .extend({
-    confirmPassword: z.string().min(8, 'Min 8 characters'),
+    confirmPassword: z.string().min(8, "Min 8 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: 'Passwords must match',
+    path: ["confirmPassword"],
+    message: "Passwords must match",
   });
 
 export default function Signup() {
@@ -27,18 +30,18 @@ export default function Signup() {
     router.replace("/auth/sign-in");
   };
 
-  const methods = useForm<SignupData & {confirmPassword: string}>({
+  const methods = useForm<SignupData & { confirmPassword: string }>({
     resolver: zodResolver(signupWithConfirmSchema),
-    mode: 'onBlur',
+    mode: "onBlur",
   });
 
   const signup = async (data: SignupData) => {
-    const {accessToken, refreshToken} = await auth.signup(data);
-    await storage.set(StorageKeys.ACCESS_TOKEN, accessToken)
-    await storage.set(StorageKeys.REFRESH_TOKEN, refreshToken)
-  }
+    const { accessToken, refreshToken } = await auth.signup(data);
+    await storage.set(StorageKeys.ACCESS_TOKEN, accessToken);
+    await storage.set(StorageKeys.REFRESH_TOKEN, refreshToken);
+  };
 
-  const mutation = useMutation({mutationFn: signup,})
+  const mutation = useMutation({ mutationFn: signup });
 
   return (
     <View className="flex-1 bg-soft flex-col items-center px-6">
@@ -55,12 +58,39 @@ export default function Signup() {
       </View>
       <FormProvider {...methods}>
         <>
-          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey mt-6`} name="firstName" placeholder="First name" />
-          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="lastName" placeholder="First name" />
-          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="email" placeholder="Email" keyboardType="email-address" />
-          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="password" placeholder="Password" />
-          <FormInput className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`} name="confirmPassword" placeholder="Repeat password" />
-          <Button onPress={methods.handleSubmit(({confirmPassword, ...signupData}) => mutation.mutate(signupData))} className={`w-full items-center rounded-2xl`}>
+          <FormInput
+            className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey mt-6`}
+            name="firstName"
+            placeholder="First name"
+          />
+          <FormInput
+            className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+            name="lastName"
+            placeholder="First name"
+          />
+          <FormInput
+            className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+            name="email"
+            placeholder="Email"
+            keyboardType="email-address"
+          />
+          <FormInput
+            className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+            name="password"
+            placeholder="Password"
+          />
+          <FormInput
+            className={`w-full bg-transparent border-grey border py-4 px-6 rounded-xl mb-5 placeholder:text-grey`}
+            name="confirmPassword"
+            placeholder="Repeat password"
+          />
+          <Button
+            onPress={methods.handleSubmit(
+              ({ confirmPassword, ...signupData }) =>
+                mutation.mutate(signupData),
+            )}
+            className={`w-full items-center rounded-2xl`}
+          >
             Sign up
           </Button>
         </>
