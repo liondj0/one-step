@@ -14,7 +14,7 @@ import {
   Nunito_600SemiBold,
 } from "@expo-google-fonts/nunito";
 import { useSession } from "@/lib/useSession";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -49,7 +49,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <QueryClientProvider client={queryClient}>
-    <Stack screenOptions={{ headerShown: false }}></Stack>
-  </QueryClientProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Stack screenOptions={{ headerShown: false }}></Stack>
+    </QueryClientProvider>
+  );
 }

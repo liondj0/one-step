@@ -1,10 +1,12 @@
-import {HTTPException} from "hono/http-exception";
-import {ContentfulStatusCode} from "hono/dist/types/utils/http-status";
-
+import { HTTPException } from "hono/http-exception";
+import { ContentfulStatusCode } from "hono/dist/types/utils/http-status";
 
 export abstract class AppError extends HTTPException {
-  constructor(message: string, readonly statusCode: ContentfulStatusCode) {
-    super(statusCode, {message});
+  constructor(
+    message: string,
+    readonly statusCode: ContentfulStatusCode,
+  ) {
+    super(statusCode, { message });
   }
 }
 
@@ -31,5 +33,3 @@ export class InternalServerError extends AppError {
     super(message, 500);
   }
 }
-
-

@@ -1,6 +1,5 @@
-import {BaseRepo} from "./base-repo";
-import {RefreshTokenEntity} from "../entity/refresh-token-entity";
-
+import { BaseRepo } from "./base-repo";
+import { RefreshTokenEntity } from "../entity/refresh-token-entity";
 
 export class RefreshTokenRepo extends BaseRepo<RefreshTokenEntity> {
   constructor() {
@@ -8,9 +7,8 @@ export class RefreshTokenRepo extends BaseRepo<RefreshTokenEntity> {
   }
 
   findOneByToken(token: string): Promise<RefreshTokenEntity | undefined> {
-    return this.findOne({token})
+    return this.findOne({ token });
   }
 }
-
 
 export const refreshTokenRepo = () => new RefreshTokenRepo();

@@ -1,16 +1,14 @@
-import {Hono} from "hono";
-
+import { Hono } from "hono";
 
 export abstract class BaseController {
-
   private router!: Hono;
 
   protected constructor(private basePath: string) {
-    this.createRouterIfNotExists()
+    this.createRouterIfNotExists();
   }
 
   createRouterIfNotExists() {
-    if(!this.router) this.router = new Hono();
+    if (!this.router) this.router = new Hono();
   }
 
   get routerInstance() {
@@ -20,5 +18,4 @@ export abstract class BaseController {
   get path() {
     return this.basePath;
   }
-
 }

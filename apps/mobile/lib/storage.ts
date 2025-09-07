@@ -7,12 +7,15 @@ export enum StorageKeys {
   REFRESH_TOKEN = "refresh-token",
 }
 
-type ValueType<Key> =
-  Key extends StorageKeys.ONBOARDING_COMPLETED ? boolean
-  : Key extends StorageKeys.ONBOARDING_STEP ? number
-  : Key extends StorageKeys.ACCESS_TOKEN ? string
-  : Key extends StorageKeys.REFRESH_TOKEN ? string
-  : never;
+type ValueType<Key> = Key extends StorageKeys.ONBOARDING_COMPLETED
+  ? boolean
+  : Key extends StorageKeys.ONBOARDING_STEP
+    ? number
+    : Key extends StorageKeys.ACCESS_TOKEN
+      ? string
+      : Key extends StorageKeys.REFRESH_TOKEN
+        ? string
+        : never;
 
 export const storage = {
   get: async <Key extends StorageKeys>(
