@@ -7,16 +7,9 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useSession} from "@/lib/useSession";
 import {authService} from "@/lib/service/auth-service";
 import {Href, router} from "expo-router";
+import {colors} from "@/util/colors";
 
-const colors = {
-  forest: "#4f694c",
-  peach: "#FFB199",
-  sunbeam: "#FFD966",
-  dustysky: "#7DA2A9",
-  ink: "#0f1412",
-  paper: "#f7f7f5",
-  danger: '#e7000b'
-};
+
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps)=> {
 

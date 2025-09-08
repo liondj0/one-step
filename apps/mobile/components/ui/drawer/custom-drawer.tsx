@@ -60,7 +60,7 @@ export const CustomDrawer = () => {
           style={{ paddingHorizontal: 12, marginRight: 6 }}
           hitSlop={10}
         >
-          <View className={`bg-forest/80 rounded-full h-12 w-12 flex items-center justify-center`}>
+          <View className={`bg-sunbeam rounded-full h-12 w-12 flex items-center justify-center`}>
             <Text className={`text-2xl`}>🙈</Text>
           </View>
         </Pressable>
