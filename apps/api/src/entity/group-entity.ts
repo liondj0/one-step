@@ -1,5 +1,11 @@
 import { BaseEntity } from "./base-entity";
-import { Collection, Entity, OneToMany, Property } from "@mikro-orm/core";
+import {
+  Collection,
+  Entity,
+  Formula,
+  OneToMany,
+  Property,
+} from "@mikro-orm/core";
 import { UserInGroupEntity } from "./user-in-group-entity";
 
 @Entity({ tableName: "groups" })
@@ -20,4 +26,7 @@ export class GroupEntity extends BaseEntity {
 
   @OneToMany({ entity: () => UserInGroupEntity, mappedBy: "group" })
   usersInGroup = new Collection<UserInGroupEntity>(this);
+
+  @Formula((alias) => `(select count(*) from user_in_groups u where u."groupId" = ${alias}.id)`)
+  usersCount!: number;
 }

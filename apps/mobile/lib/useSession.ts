@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { storage, StorageKeys } from "@/lib/storage";
-import {User} from "@one-step/common/types/models/user"
-import {jwtUtil} from "@one-step/common/util/jwt-util";
+import { User } from "@one-step/common/types/models/user";
+import { jwtUtil } from "@one-step/common/util/jwt-util";
 
 export function useSession() {
   const [isSessionReady, setIsSessionReady] = useState(false);
@@ -9,9 +9,8 @@ export function useSession() {
   const [accessToken, setAccessToken] = useState<string | undefined>();
   const [user, setUser] = useState<User>();
 
-
   const load = useCallback(async () => {
-    console.log(`load called`)
+    console.log(`load called`);
     const onboarding = !!(await storage.get(StorageKeys.ONBOARDING_COMPLETED));
     setOnboardingCompleted(onboarding);
 
@@ -31,7 +30,7 @@ export function useSession() {
     } catch (e) {
       console.log(e);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     load().finally(() => setIsSessionReady(true));
@@ -43,6 +42,6 @@ export function useSession() {
     isSessionReady,
     onboardingCompleted,
     accessToken,
-    user
+    user,
   };
 }

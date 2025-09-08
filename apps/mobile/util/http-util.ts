@@ -12,7 +12,7 @@ export const getAuthHeaders = async (headers: Headers = defaultHeaders) => {
   return {
     ...headers,
     Authorization: `Bearer ${token}`,
-  };
+  } as Headers;
 };
 
 const retryIfAuthError = <Result>(
@@ -31,23 +31,27 @@ const parseAxiosCallback = <Result>(
 
 export const httpClientBuilder = (
   prefix = "",
-  headers: Headers = defaultHeaders,
+  headerFunction?: (headers?: Headers) => Promise<Headers>,
 ) => ({
   get: async <Result>(url: string) => {
+    const headers = (await headerFunction?.()) ?? {};
     const axiosCall = () => axios.get<Result>(`${prefix}${url}`, { headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
   },
   post: async <Result, Body>(url: string, body: Body) => {
+    const headers = (await headerFunction?.()) ?? {};
     const axiosCall = () =>
-      axios.post<Result>(`${prefix}${url}`, body, {headers });
+      axios.post<Result>(`${prefix}${url}`, body, { headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
   },
   patch: async <Result, Body>(url: string, body: Body) => {
+    const headers = (await headerFunction?.()) ?? {};
     const axiosCall = () =>
       axios.patch<Result>(`${prefix}${url}`, body, { headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
   },
   delete: async <Result>(url: string) => {
+    const headers = (await headerFunction?.()) ?? {};
     const axiosCall = () =>
       axios.delete<Result>(`${prefix}${url}`, { headers });
     return retryIfAuthError(headers, parseAxiosCallback(axiosCall));
