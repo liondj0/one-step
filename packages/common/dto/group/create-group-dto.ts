@@ -6,4 +6,8 @@ export const createGroupSchema = z.object({
   isPublic: z.boolean().optional().default(false),
 });
 
-export type CreateGroupDto = z.infer<typeof createGroupSchema>;
+export type CreateGroupDto = {
+  name: string;
+  description?: string;
+  isPublic?: boolean;
+};

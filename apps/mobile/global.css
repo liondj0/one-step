@@ -3,6 +3,86 @@
 @tailwind utilities;
 
 
+/* =========================
+   BUTTONS
+   ========================= */
+.btn {
+    @apply px-4 h-12 rounded-xl items-center justify-center flex-row font-semibold;
+}
+
+/* Primary (forest green) */
+.btn-primary {
+    @apply btn bg-forest text-white shadow;
+}
+
+/* Secondary (outlined) */
+.btn-secondary {
+    @apply btn bg-white border border-forest text-forest;
+}
+
+/* Disabled */
+.btn-disabled {
+    @apply btn bg-forest/20 text-forest/60;
+}
+
+/* =========================
+   INPUTS
+   ========================= */
+.input {
+    @apply h-12 px-4 rounded-xl bg-white border border-black/10 text-ink;
+}
+
+.input-focus {
+    @apply border-forest shadow-md;
+}
+
+/* Multiline (description fields) */
+.input-multiline {
+    @apply input h-28 py-3;
+}
+
+/* =========================
+   CARDS
+   ========================= */
+.card {
+    @apply bg-white rounded-2xl shadow px-4 py-3;
+}
+
+.card-accent {
+    @apply card border-l-4; /* add border color per context: border-forest, border-peach, etc. */
+}
+
+/* =========================
+   BADGES
+   ========================= */
+.badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-open {
+    @apply badge bg-sunbeam/30 text-ink/70 border border-sunbeam/60;
+}
+
+.badge-invite {
+    @apply badge bg-peach/20 text-ink/70 border border-peach/40;
+}
+
+/* =========================
+   TIPS
+   ========================= */
+.tip {
+    @apply rounded-xl px-4 py-3 bg-sunbeam/20 border border-sunbeam/40 text-ink/70 text-sm;
+}
+
+/* =========================
+   OTHERS
+   ========================= */
+
+.bullet {
+    @apply h-2.5 w-2.5 rounded-full mr-2;
+}
+
 .heading {
     @apply text-forest text-5xl font-libreBold tracking-tighter leading-[1.25];
 }
+

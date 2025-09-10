@@ -27,6 +27,9 @@ export class GroupEntity extends BaseEntity {
   @OneToMany({ entity: () => UserInGroupEntity, mappedBy: "group" })
   usersInGroup = new Collection<UserInGroupEntity>(this);
 
-  @Formula((alias) => `(select count(*) from user_in_groups u where u."groupId" = ${alias}.id)`)
+  @Formula(
+    (alias) =>
+      `(select count(*) from user_in_groups u where u."groupId" = ${alias}.id)`,
+  )
   usersCount!: number;
 }

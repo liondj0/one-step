@@ -7,7 +7,7 @@ import {
   Image,
   View,
 } from "react-native";
-import { GoogleButton } from "@/components/auth/google-button";
+import GoogleButton from "@/components/auth/google-button";
 import Button from "@/components/ui/button";
 import { useRouter } from "expo-router";
 import { FormProvider, useForm } from "react-hook-form";

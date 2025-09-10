@@ -34,7 +34,7 @@ export function useSession() {
 
   useEffect(() => {
     load().finally(() => setIsSessionReady(true));
-    const unsub = storage.subscribe(() => load()); // 👈 react to any storage change
+    const unsub = storage.subscribe(() => load());
     return () => unsub();
   }, [load]);
 

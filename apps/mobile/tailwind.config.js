@@ -10,6 +10,8 @@ module.exports = {
         peach: '#FFB199',
         sunbeam: '#FFD966',
         dustysky: '#7DA2A9',
+        paper: "#f7f7f5",
+        ink: "#0f1412",
         button: '#f8f1e1',
         soft: '#fefbf2',
         grey: '#d7d7cb',

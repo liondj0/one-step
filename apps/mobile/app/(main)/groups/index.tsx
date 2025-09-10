@@ -6,13 +6,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/util/colors";
 import { useQuery } from "@tanstack/react-query";
 import { groupApi } from "@/lib/api/group-api";
-import { GroupCard } from "@/components/ui/groups/group-item";
+import GroupCard from "@/components/ui/groups/group-item";
+import { router } from "expo-router";
 
-export default function Groups() {
+export default function Index() {
   const headerHeight = useHeaderHeight();
 
   const query = useQuery({ queryKey: ["groups"], queryFn: groupApi.getGroups });
-  console.log(query.data);
+
+  const addNew = () => {
+    router.navigate("/groups/new");
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -45,7 +49,7 @@ export default function Groups() {
               </View>
             </Pressable>
 
-            <Pressable>
+            <Pressable onPress={addNew}>
               <View className="bg-forest rounded-full h-9 px-4 flex flex-row items-center justify-center">
                 <MaterialCommunityIcons name="plus" color="white" size={20} />
                 <Text className="text-white font-bold text-lg">Create</Text>

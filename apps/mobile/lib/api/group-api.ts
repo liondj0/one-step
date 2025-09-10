@@ -7,7 +7,7 @@ export const groupApi = {
     getAuthHeaders,
   ),
   getGroups: (): Promise<Group[]> => {
-    console.log(`getGroups`)
+    console.log(`getGroups`);
     return groupApi.httpClient.get(``);
   },
 };
