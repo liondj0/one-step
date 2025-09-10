@@ -60,7 +60,7 @@ export default function NewGroup() {
         <FormProvider {...form}>
           <View className={`relative`}>
             <View
-              className={`flex flex-row pr-14 h-44 rounded-b-3xl overflow-hidden`}
+              className={`flex flex-row pr-14 h-52 rounded-b-3xl overflow-hidden`}
             >
               <LinearGradient
                 colors={["#FFE9A7AA", "#FBB8B0AA", "#7DA2A9AA"]}

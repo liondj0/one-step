@@ -16,7 +16,7 @@ export default function Index() {
   const query = useQuery({ queryKey: ["groups"], queryFn: groupApi.getGroups });
 
   const addNew = () => {
-    router.navigate("/groups/new");
+    router.push("/groups/new");
   };
 
   const firstTimeRef = React.useRef(true);
