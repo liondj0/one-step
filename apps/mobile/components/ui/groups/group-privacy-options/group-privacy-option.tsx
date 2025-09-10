@@ -1,85 +1,37 @@
-// components/PrivacyOption.tsx
-import { useState } from "react";
-import { Pressable, View, Text } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {forwardRef, Ref} from "react";
+import {Pressable, View, Text} from "react-native";
+import {Bullet} from "@/components/ui/bullet";
 
-type VisualState = "inactive" | "hover" | "active";
-
-type Props = {
+type GroupPrivacyOptionProps = {
   title: string;
-  subtitle: string;
-  selected?: boolean; // convenience: maps to "active"
-  state?: VisualState; // override state when needed
-  palette: {
-    bgTint: string;
-    bgTintStrong: string;
-    border: string;
-    iconBg: string;
-    icon: string;
-    ringShadow: string;
-    edge: string;
-  };
-};
+  subTitle: string;
+  selected: boolean;
+  children: React.ReactNode;
+}
 
-export function GroupPrivacyOption({
-  title,
-  subtitle,
-  selected,
-  state: forcedState,
-  palette,
-}: Props) {
-  const [hovered, setHovered] = useState(false);
+function GroupPrivacyOption({selected, title, subTitle, children}: GroupPrivacyOptionProps, ref: Ref<View>) {
 
-  const visual: VisualState =
-    forcedState ?? (selected ? "active" : hovered ? "hover" : "inactive");
-
-  // base container styles
-  const base =
-    "rounded-2xl px-4 py-3 flex-row items-center gap-3 overflow-hidden";
-
-  // state styles
-  const byState: Record<VisualState, string> = {
-    inactive: `bg-white border border-black/10`,
-    hover: `${palette.bgTint} border ${palette.border} shadow-sm`,
-    active: `${palette.bgTintStrong} border ${palette.border} ${palette.ringShadow}`,
-  };
+  const isPublic = title === 'Open';
+  const activeSoftBgColor = isPublic ? 'bg-sunbeam/40' : 'bg-peach/40';
+  const activeBgColor = isPublic ? 'bg-sunbeam' : 'bg-peach';
+  const activeBorderColor = isPublic ? 'border-sunbeam' : 'border-peach';
 
 
   return (
-    <View className={`${base} ${byState[visual]}`}>
-      <View
-        className={[
-          "h-6 w-6 rounded-full items-center justify-center",
-          visual === "active" ? "bg-white/40 border-2" : "bg-white border",
-          palette.border,
-        ].join(" ")}
-      >
-        <View
-          style={{
-            backgroundColor:
-              visual === "active" ? palette.iconBg : "transparent",
-          }}
-          className="h-3 w-3 rounded-full"
-        />
+    <View ref={ref} className={`flex flex-row items-center justify-center border p-5 rounded-2xl ${selected ? `${activeSoftBgColor} ${activeBorderColor}` : 'border-dustysky'}`}>
+      <View className={`w-6 h-6 rounded-full ${activeBgColor} flex items-center justify-center mr-4`}>
+        {selected && <Bullet className={`bg-forest`} />}
       </View>
-
-      {/* tone icon bubble */}
-      <View
-        style={{ backgroundColor: palette.iconBg }}
-        className="h-8 w-8 rounded-full items-center justify-center"
-      >
-        <MaterialCommunityIcons
-          name={title.toLowerCase() === "open" ? "web" : "lock-outline"}
-          size={18}
-          color={palette.icon}
-        />
+      <View className={`w-10 h-10 rounded-full ${activeBgColor} flex items-center justify-center `}>
+        {children}
       </View>
-
-      {/* text */}
-      <View className="flex-1">
-        <Text className="text-ink font-semibold">{title}</Text>
-        <Text className="text-dustysky mt-0.5"> {subtitle} </Text>
+      <View className="flex-1 ml-2">
+        <Text className={`text-ink font-medium`}>{title}</Text>
+        <Text className={`text-dustysky font-medium`}>{subTitle}</Text>
       </View>
     </View>
-  );
+  )
+
 }
+
+export default forwardRef(GroupPrivacyOption)
