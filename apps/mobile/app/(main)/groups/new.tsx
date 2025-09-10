@@ -1,8 +1,8 @@
-import {Text, View, StyleSheet, ScrollView, Pressable} from "react-native";
+import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useHeaderHeight } from "@react-navigation/elements";
-import {FormProvider, useForm, useWatch} from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CreateGroupDto,
@@ -10,11 +10,13 @@ import {
 } from "@one-step/common/dto/group/create-group-dto";
 import FormInput from "@/components/ui/form/form-input";
 import { Bullet } from "@/components/ui/bullet";
-import {router} from "expo-router";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {colors} from "@/util/colors";
+import { router } from "expo-router";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { colors } from "@/util/colors";
 import GroupPrivacyOption from "@/components/ui/groups/group-privacy-options/group-privacy-option";
 import Button from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { groupApi } from "@/lib/api/group-api";
 
 export default function NewGroup() {
   const headerHeight = useHeaderHeight();
@@ -23,17 +25,27 @@ export default function NewGroup() {
     resolver: zodResolver(createGroupSchema),
     mode: "onBlur",
     defaultValues: {
-      isPublic: true
-    }
+      isPublic: true,
+    },
   });
 
-  const name = useWatch({ control: form.control, name: 'name' });
-  const isPublic = useWatch({ control: form.control, name: 'isPublic' });
-
+  const name = useWatch({ control: form.control, name: "name" });
+  const isPublic = useWatch({ control: form.control, name: "isPublic" });
 
   const setIsPublic = (value: boolean) => {
-    form.setValue("isPublic", value)
-  }
+    form.setValue("isPublic", value);
+  };
+
+  const mutation = useMutation({
+    mutationFn: async (data: CreateGroupDto) => {
+      await groupApi.saveGroup(data);
+      router.back();
+    },
+  });
+
+  const handleSubmit = form.handleSubmit(async (data) => {
+    mutation.mutate(data);
+  })
 
   return (
     <View style={{ flex: 1 }} className={``}>
@@ -72,9 +84,7 @@ export default function NewGroup() {
                   />
                 </Pressable>
                 <View className={`mx-auto`}>
-                  <Text
-                    className={`text-center text-2xl text-forest mb-2`}
-                  >
+                  <Text className={`text-center text-2xl text-forest mb-2`}>
                     Create group 🌱
                   </Text>
                   <Text
@@ -129,8 +139,16 @@ export default function NewGroup() {
                 className={`flex-1 w-full`}
                 onPress={() => setIsPublic(true)}
               >
-                <GroupPrivacyOption selected={!!isPublic} title={`Open`} subTitle={`Anyone can find and join`}>
-                  <MaterialCommunityIcons name={`web`} size={20} color={`#973c00`} />
+                <GroupPrivacyOption
+                  selected={!!isPublic}
+                  title={`Open`}
+                  subTitle={`Anyone can find and join`}
+                >
+                  <MaterialCommunityIcons
+                    name={`web`}
+                    size={20}
+                    color={`#973c00`}
+                  />
                 </GroupPrivacyOption>
               </Pressable>
               <View className={`mt-4`} />
@@ -138,17 +156,32 @@ export default function NewGroup() {
                 className={`flex-1 w-full`}
                 onPress={() => setIsPublic(false)}
               >
-                <GroupPrivacyOption selected={!isPublic} title={`Invite only`} subTitle={`Anyone can find and join`}>
-                  <MaterialCommunityIcons name={`lock-outline`} size={20} color={`#9f2d00`} />
+                <GroupPrivacyOption
+                  selected={!isPublic}
+                  title={`Invite only`}
+                  subTitle={`Anyone can find and join`}
+                >
+                  <MaterialCommunityIcons
+                    name={`lock-outline`}
+                    size={20}
+                    color={`#9f2d00`}
+                  />
                 </GroupPrivacyOption>
               </Pressable>
             </View>
             <View className={`px-6 mt-8`}>
-              <Button className={`${form.formState.isValid ? `` : `opacity-30`} bg-forest items-center`} textClassName={`text-white text-lg`} onPress={() => {}}>
+              <Button
+                disabled={!form.formState.isValid}
+                className={`${form.formState.isValid ? `` : `opacity-30`} bg-forest items-center`}
+                textClassName={`text-white text-lg`}
+                onPress={handleSubmit}
+              >
                 Create group 🌱
               </Button>
             </View>
-            <View className={`mx-6 mt-8 flex flex-col p-6 rounded-2xl overflow-hidden`}>
+            <View
+              className={`mx-6 mt-8 flex flex-col p-6 rounded-2xl overflow-hidden`}
+            >
               <LinearGradient
                 colors={["#FFE9A7CA", "#FBB8B0CA"]}
                 start={{ x: 0, y: 0 }}
@@ -157,7 +190,10 @@ export default function NewGroup() {
                 style={StyleSheet.absoluteFill}
               />
               <Text className={`text-ink text-2xl mb-4`}>☀️Pro tip</Text>
-              <Text className={`text-dustysky text-lg`}>Groups work best when they{"'"}re focused around a habit or goal. Keep it simple and welcoming!</Text>
+              <Text className={`text-dustysky text-lg`}>
+                Groups work best when they{"'"}re focused around a habit or
+                goal. Keep it simple and welcoming!
+              </Text>
             </View>
           </View>
         </FormProvider>

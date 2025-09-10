@@ -1,9 +1,9 @@
-import {Stack} from "expo-router";
+import { Stack } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: 'index',
+  initialRouteName: "index",
 };
 
 export default function GroupLayout() {
-  return <Stack screenOptions={{ headerShown: false }}></Stack>
+  return <Stack screenOptions={{ headerShown: false }}></Stack>;
 }

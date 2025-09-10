@@ -1,5 +1,6 @@
 import { getAuthHeaders, httpClientBuilder } from "@/util/http-util";
 import { Group } from "@one-step/common/dto/group/group";
+import { CreateGroupDto } from "@one-step/common/dto/group/create-group-dto";
 
 export const groupApi = {
   httpClient: httpClientBuilder(
@@ -7,7 +8,9 @@ export const groupApi = {
     getAuthHeaders,
   ),
   getGroups: (): Promise<Group[]> => {
-    console.log(`getGroups`);
     return groupApi.httpClient.get(``);
+  },
+  saveGroup: (createGroupDto: CreateGroupDto) => {
+    return groupApi.httpClient.post<Group, CreateGroupDto>(``, createGroupDto);
   },
 };

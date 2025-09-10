@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Group } from "@one-step/common/dto/group/group";
-import {forwardRef, Ref} from "react";
+import { forwardRef, Ref } from "react";
 
 type GroupCardProps = {
   group: Group;
@@ -11,13 +11,16 @@ type GroupCardProps = {
   onToggleFavorite?: () => void;
 };
 
-function GroupCard({
-  group,
-  lastActive,
-  isFavorite = false,
-  onPress,
-  onToggleFavorite,
-}: GroupCardProps, ref: Ref<View>) {
+function GroupCard(
+  {
+    group,
+    lastActive,
+    isFavorite = false,
+    onPress,
+    onToggleFavorite,
+  }: GroupCardProps,
+  ref: Ref<View>,
+) {
   return (
     <Pressable
       onPress={onPress}
@@ -82,4 +85,3 @@ function GroupCard({
 }
 
 export default forwardRef(GroupCard);
-

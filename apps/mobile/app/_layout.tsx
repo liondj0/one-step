@@ -1,6 +1,6 @@
 import { Stack, SplashScreen } from "expo-router";
 import "../global.css";
-import {StrictMode, useEffect, useState} from "react";
+import { StrictMode, useEffect, useState } from "react";
 import {
   useFonts,
   LibreBaskerville_400Regular,
@@ -21,7 +21,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [appReady, setAppReady] = useState(false);
-  const { isSessionReady, onboardingCompleted, user, accessToken } = useSession();
+  const { isSessionReady, onboardingCompleted, user, accessToken } =
+    useSession();
 
   const [queryClient] = useState(() => new QueryClient());
 
@@ -43,7 +44,7 @@ export default function RootLayout() {
     }
 
     prepare();
-    console.log('called')
+    console.log("called");
   }, [fontsLoaded, isSessionReady]);
 
   if (!appReady || !isSessionReady) {
@@ -53,10 +54,10 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Protected guard={onboardingCompleted} >
+        <Stack.Protected guard={onboardingCompleted}>
           <Stack.Screen name="onboarding" />
         </Stack.Protected>
-        <Stack.Protected guard={(!!accessToken && !!user)}>
+        <Stack.Protected guard={!!accessToken && !!user}>
           <Stack.Screen name="main" />
         </Stack.Protected>
         <Stack.Screen name="auth" />
