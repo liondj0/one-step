@@ -7,7 +7,8 @@ import { colors } from "@/util/colors";
 import { useQuery } from "@tanstack/react-query";
 import { groupApi } from "@/lib/api/group-api";
 import GroupCard from "@/components/ui/groups/group-item";
-import { router } from "expo-router";
+import {router, useFocusEffect} from "expo-router";
+import React from "react";
 
 export default function Index() {
   const headerHeight = useHeaderHeight();
@@ -17,6 +18,19 @@ export default function Index() {
   const addNew = () => {
     router.navigate("/groups/new");
   };
+
+  const firstTimeRef = React.useRef(true)
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (firstTimeRef.current) {
+        firstTimeRef.current = false
+        return
+      }
+
+      query.refetch()
+    }, [query.refetch]),
+  )
 
   return (
     <View style={{ flex: 1 }}>
