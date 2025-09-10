@@ -45,7 +45,7 @@ export default function NewGroup() {
 
   const handleSubmit = form.handleSubmit(async (data) => {
     mutation.mutate(data);
-  })
+  });
 
   return (
     <View style={{ flex: 1 }} className={``}>

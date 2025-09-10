@@ -33,6 +33,9 @@ module.exports = {
         '4xl': ['36px'],
         '5xl': ['48px'],
         '6xl': ['60px'],
+      },
+      boxShadow: {
+        card: "0 4px 20px rgba(0,0,0,0.4)"
       }
     }
   },

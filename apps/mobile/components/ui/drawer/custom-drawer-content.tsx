@@ -64,7 +64,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                 className={`h-14 w-14 bg-sunbeam/30 flex items-center justify-center rounded-lg mr-4`}
               >
                 <MaterialCommunityIcons
-                  name={`account-group`}
+                  name={`account-multiple-outline`}
                   color={colors.forest}
                   size={28}
                 ></MaterialCommunityIcons>
