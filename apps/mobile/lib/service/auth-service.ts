@@ -1,8 +1,7 @@
-import {SignupData} from '@one-step/common/dto/auth/signup-data'
-import {SignInData} from '@one-step/common/dto/auth/signin-data'
-import {auth} from "@/lib/api/auth";
-import {storage, StorageKeys} from "@/lib/storage";
-
+import { SignupData } from "@one-step/common/dto/auth/signup-data";
+import { SignInData } from "@one-step/common/dto/auth/signin-data";
+import { auth } from "@/lib/api/auth";
+import { storage, StorageKeys } from "@/lib/storage";
 
 export const authService = {
   signup: async (data: SignupData) => {
@@ -18,5 +17,5 @@ export const authService = {
   signOut: async () => {
     await storage.remove(StorageKeys.ACCESS_TOKEN);
     await storage.remove(StorageKeys.REFRESH_TOKEN);
-  }
-}
+  },
+};

@@ -10,6 +10,8 @@ module.exports = {
         peach: '#FFB199',
         sunbeam: '#FFD966',
         dustysky: '#7DA2A9',
+        paper: "#f7f7f5",
+        ink: "#0f1412",
         button: '#f8f1e1',
         soft: '#fefbf2',
         grey: '#d7d7cb',
@@ -20,6 +22,21 @@ module.exports = {
         libreBold: ['LibreBaskerville_700Bold'],
         nunito: ['Nunito'],
       },
+      text: {
+        xs: ['12px'],
+        sm: ['14px'],
+        base: ['16px'],
+        lg: ['18px'],
+        xl: ['20px'],
+        '2xl': ['24px'],
+        '3xl': ['30px'],
+        '4xl': ['36px'],
+        '5xl': ['48px'],
+        '6xl': ['60px'],
+      },
+      boxShadow: {
+        card: "0 4px 20px rgba(0,0,0,0.4)"
+      }
     }
   },
   plugins: [],

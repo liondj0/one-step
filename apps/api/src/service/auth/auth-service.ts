@@ -26,7 +26,10 @@ export const login = async (email: string, password: string) => {
   if (!existingUser?.password) {
     throw new UnauthorizedError("Invalid email or password");
   }
-  const isPasswordValid = await hashUtil.compare(password, existingUser.password);
+  const isPasswordValid = await hashUtil.compare(
+    password,
+    existingUser.password,
+  );
   if (!isPasswordValid) {
     throw new UnauthorizedError("Invalid email or password");
   }

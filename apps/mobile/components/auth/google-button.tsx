@@ -1,8 +1,9 @@
 import { Image, Pressable, Text, View } from "react-native";
+import { forwardRef, Ref } from "react";
 
-export function GoogleButton() {
+const GoogleButton = (_: {}, ref: Ref<View>) => {
   return (
-    <Pressable className={`w-full`}>
+    <Pressable className={`w-full`} ref={ref}>
       <View className="bg-white border-grey border py-4 px-8 rounded-xl flex flex-row items-center justify-center space-x-4 w-full flex">
         <Image
           source={require("@/assets/images/icons/google.png")}
@@ -16,4 +17,6 @@ export function GoogleButton() {
       </View>
     </Pressable>
   );
-}
+};
+
+export default forwardRef(GoogleButton);

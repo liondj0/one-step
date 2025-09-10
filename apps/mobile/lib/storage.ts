@@ -42,13 +42,13 @@ export const storage = {
       await AsyncStorage.removeItem(key);
       listeners.forEach((l) => l(key));
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   },
   subscribe(listener: Listener) {
     listeners.add(listener);
     return () => {
-      listeners.delete(listener)
+      listeners.delete(listener);
     };
   },
 };

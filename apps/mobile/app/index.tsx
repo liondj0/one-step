@@ -1,6 +1,5 @@
 import { useSession } from "@/lib/useSession";
 import { Redirect } from "expo-router";
-import Main from "@/app/(main)";
 
 export default function Index() {
   const { onboardingCompleted, isSessionReady, accessToken } = useSession();
