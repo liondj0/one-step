@@ -1,7 +1,8 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Modal } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Group } from "@one-step/common/dto/group/group";
-import { forwardRef, Ref } from "react";
+import { forwardRef, Ref, useState } from "react";
+import * as Haptics from "expo-haptics";
 
 type GroupCardProps = {
   group: Group;
@@ -11,6 +12,53 @@ type GroupCardProps = {
   onToggleFavorite?: () => void;
   index: number;
 };
+type MenuAction = "open" | "edit" | "share" | "leave";
+
+function MenuSheet({
+  visible,
+  onClose,
+  onSelect,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  onSelect: (a: MenuAction) => void;
+}) {
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      <Pressable className="flex-1 bg-black/40" onPress={onClose}>
+        <View className="mt-auto bg-white rounded-t-2xl p-3">
+          {[
+            { key: "open", label: "Open" },
+            { key: "edit", label: "Edit" },
+            { key: "share", label: "Share link" },
+            { key: "leave", label: "Leave group", destructive: true },
+          ].map((it) => (
+            <Pressable
+              key={it.key}
+              className={`p-4 ${it.destructive ? "text-red-500" : ""}`}
+              onPress={() => {
+                onSelect(it.key as MenuAction);
+                onClose();
+              }}
+            >
+              <Text className={it.destructive ? "text-red-500" : ""}>
+                {it.label}
+              </Text>
+            </Pressable>
+          ))}
+          <Pressable className="p-4" onPress={onClose}>
+            <Text>Cancel</Text>
+          </Pressable>
+        </View>
+      </Pressable>
+    </Modal>
+  );
+}
 
 function GroupCard(
   {
@@ -23,6 +71,7 @@ function GroupCard(
   }: GroupCardProps,
   ref: Ref<View>,
 ) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const borderLeftColors = [
     "border-forest",
     "border-peach",
@@ -30,7 +79,9 @@ function GroupCard(
     "border-dustysky",
   ];
 
-  const style = group.isPublic ? "bg-sunbeam/30 border-sunbeam/60" : "bg-peach/30 border-peach/60";
+  const style = group.isPublic
+    ? "bg-sunbeam/30 border-sunbeam/60"
+    : "bg-peach/30 border-peach/60";
   return (
     <Pressable
       onPress={onPress}
@@ -40,6 +91,10 @@ function GroupCard(
         elevation: 4,
       }}
       ref={ref}
+      onLongPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        setMenuOpen(true)
+      }}
     >
       <View className="flex-row items-center">
         <Text className="text-ink font-medium  mr-2" numberOfLines={1}>
@@ -47,7 +102,9 @@ function GroupCard(
         </Text>
 
         {/* status pill */}
-        <View className={`px-2 py-0.5 rounded-full border flex flex-row items-center ${style}`}>
+        <View
+          className={`px-2 py-0.5 rounded-full border flex flex-row items-center ${style}`}
+        >
           {group.isPublic && (
             <MaterialCommunityIcons name={`web`} size={16} color={`#973c00`} />
           )}
@@ -75,7 +132,9 @@ function GroupCard(
       </View>
 
       {/* Description */}
-      <Text numberOfLines={3} className="text-dustysky mt-2 leading-5">{group.description}</Text>
+      <Text numberOfLines={3} className="text-dustysky mt-2 leading-5">
+        {group.description}
+      </Text>
 
       {/* Footer */}
       <View className="flex-row items-center mt-4">
@@ -90,6 +149,13 @@ function GroupCard(
 
         <Text className="text-dustysky ml-auto">{lastActive}</Text>
       </View>
+      <MenuSheet
+        visible={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onSelect={(a) => {
+          console.log("Menu action: ", a);
+        }}
+      />
     </Pressable>
   );
 }
