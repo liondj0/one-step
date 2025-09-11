@@ -18,9 +18,21 @@ export const findUsersActivityForDate = async ({ date }: { date: string }) => {
   return dailyActivityRepo().save(newDailyActivity);
 };
 
-export const updateUsersActivityForDate = async (id: string, updateData: Partial<DailyActivityEntity>) => {
-  const existingActivity = await dailyActivityRepo().findOne({id, userId: getUserInSession().id})
-  if (!existingActivity) throw new Error("Activity not found")
-  Object.assign(existingActivity, updateData)
-  return dailyActivityRepo().save(existingActivity)
-}
+export const updateUsersActivityForDate = async (
+  id: string,
+  updateData: Partial<DailyActivityEntity>,
+) => {
+  const existingActivity = await dailyActivityRepo().findOne({
+    id,
+    userId: getUserInSession().id,
+  });
+  if (!existingActivity) throw new Error("Activity not found");
+  if (
+    updateData.dailyGoalCompleted &&
+    !(updateData.dailyGoal || existingActivity.dailyGoal)
+  )
+    throw new Error("Daily goal is required");
+  Object.assign(existingActivity, updateData);
+  console.log(existingActivity);
+  return dailyActivityRepo().save(existingActivity);
+};

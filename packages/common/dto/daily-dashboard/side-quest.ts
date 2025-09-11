@@ -1,5 +1,4 @@
-import {z} from "zod";
-
+import { z } from "zod";
 
 export type SideQuest = {
   label: string;
@@ -8,5 +7,8 @@ export type SideQuest = {
 
 export const sideQuestSchema = z.object({
   label: z.string(),
-  completedAt: z.iso.datetime().transform(date => date ? new Date(date) : undefined).optional(),
+  completedAt: z.iso
+    .datetime()
+    .transform((date) => (date ? new Date(date) : undefined))
+    .optional(),
 });

@@ -9,7 +9,7 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
   }
 
   findById(id: string): Promise<Entity> {
-    return this.entityManager.findOne(this.entity, {id});
+    return this.entityManager.findOne(this.entity, { id });
   }
 
   findOne(filter: Partial<Entity>): Promise<Entity> {
@@ -24,5 +24,4 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
   delete(entity: Entity) {
     return this.entityManager.remove(entity);
   }
-
 }

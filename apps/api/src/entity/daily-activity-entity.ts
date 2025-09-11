@@ -1,10 +1,8 @@
 import { BaseEntity } from "./base-entity";
 import { Entity, ManyToOne, Property } from "@mikro-orm/core";
 import { UserEntity } from "./user-entity";
-import {type Meal} from "@one-step/common/dto/daily-dashboard/meal";
-import {type SideQuest} from "@one-step/common/dto/daily-dashboard/side-quest";
-
-
+import { type Meal } from "@one-step/common/dto/daily-dashboard/meal";
+import { type SideQuest } from "@one-step/common/dto/daily-dashboard/side-quest";
 
 @Entity({ tableName: "daily_activities" })
 export class DailyActivityEntity extends BaseEntity {
