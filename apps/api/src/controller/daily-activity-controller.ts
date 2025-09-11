@@ -7,7 +7,7 @@ import {
   updateUsersActivityForDate,
 } from "../service/daily-activity-service";
 import { Transactional } from "../util/middleware/transaction-util";
-import { updateDailyActivitySchema } from "../../../../packages/common/dto/daily-dashboard/update-daily-activity";
+import { updateDailyActivitySchema } from "@one-step/common/dto/daily-dashboard/update-daily-activity";
 
 export class DailyActivityController extends BaseController {
   constructor() {

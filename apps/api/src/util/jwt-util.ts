@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import { env } from "./env";
-import { AccessTokenPayload } from "../../../../packages/common/types/auth/access-token-payload";
+import { AccessTokenPayload } from "@one-step/common/types/auth/access-token-payload";
 
 export const jwtUtil = {
   createToken: (payload: AccessTokenPayload, expiresIn = 1000000) => {

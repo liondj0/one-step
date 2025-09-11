@@ -2,11 +2,12 @@ import { GET, POST, USE } from "../util/middleware/router-util";
 import { BaseController } from "./base-controller";
 import { type EndpointContext } from "../types/server";
 import { authMiddleware } from "../util/middleware/auth-util";
-import { createGroupSchema } from "../../../../packages/common/dto/group/create-group-dto";
-import { createGroup } from "../service/group-service";
+import { createGroupSchema } from "@one-step/common/dto/group/create-group-dto";
+import {createGroup, createGroupPost} from "../service/group-service";
 import { Transactional } from "../util/middleware/transaction-util";
 import { groupRepo } from "../repo/group-repo";
 import { getUserInSession } from "../util/session-util";
+import { createGroupPostSchema } from "@one-step/common/dto/group/create-group-post";
 
 export class GroupController extends BaseController {
   constructor() {
@@ -25,5 +26,14 @@ export class GroupController extends BaseController {
   async createGroup(context: EndpointContext) {
     const body = createGroupSchema.parse(await context.req.json());
     return await createGroup(body);
+  }
+
+  @POST("/:groupId/posts")
+  @USE(authMiddleware)
+  @Transactional()
+  async createGroupPost(context: EndpointContext) {
+    const body = createGroupPostSchema.parse(await context.req.json());
+    const groupId = context.req.param("groupId");
+    return await createGroupPost(groupId, body);
   }
 }
