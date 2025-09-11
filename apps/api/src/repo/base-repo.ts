@@ -1,6 +1,5 @@
 import { BaseEntity } from "../entity/base-entity";
-import { EntityManager } from "@mikro-orm/core";
-import { RequestContext } from "@mikro-orm/postgresql";
+import { EntityManager, RequestContext } from "@mikro-orm/postgresql";
 
 export abstract class BaseRepo<Entity extends BaseEntity> {
   protected constructor(private entity: { new (): Entity }) {}
@@ -10,7 +9,7 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
   }
 
   findById(id: string): Promise<Entity> {
-    return this.entityManager.findOne(this.entity, id);
+    return this.entityManager.findOne(this.entity, { id });
   }
 
   findOne(filter: Partial<Entity>): Promise<Entity> {
@@ -18,7 +17,8 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
   }
 
   save(entity: Entity) {
-    return this.entityManager.persist(entity);
+    this.entityManager.persist(entity);
+    return entity;
   }
 
   delete(entity: Entity) {

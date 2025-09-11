@@ -44,7 +44,6 @@ export default function RootLayout() {
     }
 
     prepare();
-    console.log("called");
   }, [fontsLoaded, isSessionReady]);
 
   if (!appReady || !isSessionReady) {
@@ -58,7 +57,7 @@ export default function RootLayout() {
           <Stack.Screen name="onboarding" />
         </Stack.Protected>
         <Stack.Protected guard={!!accessToken && !!user}>
-          <Stack.Screen name="main" />
+          <Stack.Screen name="(main)" />
         </Stack.Protected>
         <Stack.Screen name="auth" />
       </Stack>

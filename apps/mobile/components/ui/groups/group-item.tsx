@@ -93,7 +93,7 @@ function GroupCard(
       ref={ref}
       onLongPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-        setMenuOpen(true)
+        setMenuOpen(true);
       }}
     >
       <View className="flex-row items-center">

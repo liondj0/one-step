@@ -3,7 +3,7 @@ import { forwardRef, Ref } from "react";
 
 type ButtonProps = {
   onPress: () => void;
-  children: string;
+  children: string | React.ReactNode;
   className?: string;
   textClassName?: string;
   disabled?: boolean;
@@ -21,7 +21,7 @@ const Button = function (
       disabled={disabled}
     >
       <Text
-        className={`text-forest text-3xl font-nunito font-semibold ${textClassName ?? ""}`}
+        className={`text-forest text-2xl font-nunito font-semibold ${textClassName ?? ""}`}
       >
         {children}
       </Text>

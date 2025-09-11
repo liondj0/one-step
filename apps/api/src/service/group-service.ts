@@ -1,4 +1,4 @@
-import { CreateGroupDto } from "../../../../packages/common/dto/group";
+import { CreateGroupDto } from "../../../../packages/common/dto/group/create-group-dto";
 import { GroupEntity } from "../entity/group-entity";
 import { groupRepo } from "../repo/group-repo";
 import { UserInGroupEntity } from "../entity/user-in-group-entity";
