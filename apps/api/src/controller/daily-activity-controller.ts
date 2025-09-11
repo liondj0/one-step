@@ -4,7 +4,6 @@ import { authMiddleware } from "../util/middleware/auth-util";
 import type { EndpointContext } from "../types/server";
 import {findUsersActivityForDate, updateUsersActivityForDate} from "../service/daily-activity-service";
 import { Transactional } from "../util/middleware/transaction-util";
-import {dailyActivitiesSchema} from "../../../../packages/common/dto/daily-dashboard/daily-activity-dto";
 import {updateDailyActivitySchema} from "../../../../packages/common/dto/daily-dashboard/update-daily-activity";
 
 export class DailyActivityController extends BaseController {
@@ -17,7 +16,7 @@ export class DailyActivityController extends BaseController {
   @Transactional()
   async getMyGroups(context: EndpointContext) {
     const date = context.req.param("date");
-    return dailyActivitiesSchema.parse(await findUsersActivityForDate({date}));
+    return await findUsersActivityForDate({date});
   }
 
   @PATCH("/:id")

@@ -9,5 +9,5 @@ export type Meal = {
 
 export const mealSchema = z.object({
   type: z.enum(["breakfast", "lunch", "dinner", "snack"]),
-  ateAt: z.date(),
+  ateAt: z.iso.datetime().transform(date => date ? new Date(date) : undefined).optional(),
 });

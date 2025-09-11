@@ -7,8 +7,8 @@ export const dailyActivityDtoSchema = z.object({
   date: z.date(),
   dailyGoal: z.string().optional(),
   dailyGoalCompleted: z.boolean().default(false),
-  meals: z.array(mealSchema),
-  sideQuests: z.array(sideQuestSchema)
+  meals: z.array(mealSchema).optional(),
+  sideQuests: z.array(sideQuestSchema).optional()
 });
 
 export const dailyActivitiesSchema = z.array(dailyActivityDtoSchema);
