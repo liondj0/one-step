@@ -52,9 +52,21 @@ export default function Main() {
   const updateMealLog = async (index: number) => {
     if (!data?.id || !data.meals || data.meals[index].ateAt) return;
     data.meals[index].ateAt = new Date();
-    await dailyDashboardService.saveDailyActivity(data.id, {meals: data.meals});
+    await dailyDashboardService.saveDailyActivity(data.id, {
+      meals: data.meals,
+    });
     await refetch();
-  }
+  };
+
+  const updateSideQuests = async (index: number) => {
+    if (!data?.id || !data.sideQuests || data.sideQuests[index].completedAt)
+      return;
+    data.sideQuests[index].completedAt = new Date();
+    await dailyDashboardService.saveDailyActivity(data.id, {
+      sideQuests: data.sideQuests,
+    });
+    await refetch();
+  };
 
   return (
     <ScrollView
@@ -72,9 +84,7 @@ export default function Main() {
           locations={[0, 0.75]}
           style={StyleSheet.absoluteFill}
         />
-        <Text className={`text-2xl mb-2`}>
-          Today{"'"}s focus
-        </Text>
+        <Text className={`text-2xl mb-2`}>Today{"'"}s focus</Text>
         <Text numberOfLines={2} className={`text-lg`}>
           {data?.dailyGoal
             ? data.dailyGoal
@@ -107,7 +117,7 @@ export default function Main() {
           <Button
             disabled={data.dailyGoalCompleted}
             className={`mt-4 rounded-xl flex flex-row items-center justify-center ${data?.dailyGoalCompleted ? "bg-forest" : "bg-white"}`}
-            textClassName={`text-lg ${data?.dailyGoalCompleted ? "text-white" : "text-forest" }`}
+            textClassName={`text-lg ${data?.dailyGoalCompleted ? "text-white" : "text-forest"}`}
             onPress={markMainFocusAsComplete}
           >
             {!data.dailyGoalCompleted && (
@@ -137,21 +147,37 @@ export default function Main() {
           <Text className={`text-forest text-xl`}>Meal Check-ins 🍽️</Text>
         </View>
         <View className={`flex flex-row gap-4 mt-4`}>
-          {data?.meals?.map((meal, index) => (<MealLogItem key={index} item={meal} onPress={() => updateMealLog(index)} />))}
+          {data?.meals?.map((meal, index) => (
+            <MealLogItem
+              key={index}
+              item={meal}
+              onPress={() => updateMealLog(index)}
+            />
+          ))}
         </View>
       </View>
-      <View className={`mt-8`}>
+      <View className={`my-8`}>
         <View className={`mb-4`}>
-          <Text className={`text-forest text-xl`}>Today{"'"}s Routine ✨</Text>
+          <Text className={`text-forest text-xl`}>Today{"'"}s Side Quests ✨</Text>
         </View>
         <View className={`bg-white flex-1 rounded-2xl p-6`}>
-          <View className={`flex flex-row items-center mb-2 p-3`}>
-            <View className={`border border-forest rounded-lg h-8 w-8 flex items-center justify-center`}>
-
-            </View>
-            <Text className={`ml-4 text-lg`}>🧘Morning meditation</Text>
+          {data?.sideQuests?.map((sideQuest, index) => (
+            <SideQuestItem
+              key={index}
+              onPress={() => updateSideQuests(index)}
+              item={sideQuest}
+            />
+          ))}
+          <View className={`flex flex-row items-center justify-center mt-4 p-3 rounded-xl overflow-hidden`}>
+            <LinearGradient
+              colors={[`${colors.sunbeam}3F`, `${colors.peach}3F`]}
+              start={{ x: 0.3, y: 0.3 }}
+              end={{ x: 1, y: 1 }}
+              locations={[0, 0.75]}
+              style={StyleSheet.absoluteFill}
+            />
+            <Text className={`text-center`}>🌱If you get the time, no pressure</Text>
           </View>
-          <SideQuestItem onPress={() => {}} item={{label: "💧Drink water"}} />
         </View>
       </View>
     </ScrollView>
