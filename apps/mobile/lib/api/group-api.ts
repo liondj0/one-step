@@ -19,5 +19,5 @@ export const groupApi = {
   },
   getPostsForGroup: (id: string): Promise<GroupPost[]> => {
     return groupApi.httpClient.get(`/${id}/posts`);
-  }
+  },
 };

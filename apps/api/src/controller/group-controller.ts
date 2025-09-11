@@ -1,4 +1,4 @@
-import {DELETE, GET, PATCH, POST, USE} from "../util/middleware/router-util";
+import { DELETE, GET, PATCH, POST, USE } from "../util/middleware/router-util";
 import { BaseController } from "./base-controller";
 import { type EndpointContext } from "../types/server";
 import { authMiddleware } from "../util/middleware/auth-util";
@@ -9,7 +9,7 @@ import {
   deleteGroupPost,
   getGroupById,
   getGroupPosts,
-  updateGroupPost
+  updateGroupPost,
 } from "../service/group-service";
 import { Transactional } from "../util/middleware/transaction-util";
 import { groupRepo } from "../repo/group-repo";
@@ -38,7 +38,7 @@ export class GroupController extends BaseController {
   @GET("/:groupId")
   @USE(authMiddleware)
   async getGroup(context: EndpointContext) {
-    return getGroupById(context.req.param("groupId"))
+    return getGroupById(context.req.param("groupId"));
   }
 
   @GET("/:groupId/posts")
@@ -71,7 +71,7 @@ export class GroupController extends BaseController {
   @USE(authMiddleware)
   @Transactional()
   async deleteGroupPost(context: EndpointContext) {
-    const postId = context.req.param("postId")
-    return await deleteGroupPost(postId)
+    const postId = context.req.param("postId");
+    return await deleteGroupPost(postId);
   }
 }

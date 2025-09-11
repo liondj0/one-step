@@ -1,18 +1,14 @@
-import {BaseRepo} from "./base-repo";
-import {GroupPostEntity} from "../entity/group-post-entity";
-
+import { BaseRepo } from "./base-repo";
+import { GroupPostEntity } from "../entity/group-post-entity";
 
 export class GroupPostRepo extends BaseRepo<GroupPostEntity> {
-
   constructor() {
     super(GroupPostEntity);
   }
 
   getPostsForGroupId(groupId: string) {
-    return this.entityManager.find(GroupPostEntity, {group: {id: groupId}});
+    return this.entityManager.find(GroupPostEntity, { group: { id: groupId } });
   }
-
 }
-
 
 export const groupPostRepo = () => new GroupPostRepo();

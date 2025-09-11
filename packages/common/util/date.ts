@@ -9,5 +9,5 @@ export const dateUtil = {
   },
   formatDistance: (date: Date, from = new Date()) => {
     return formatDistance(date, from, { addSuffix: true });
-  }
+  },
 };

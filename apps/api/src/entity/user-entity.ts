@@ -1,4 +1,4 @@
-import {Entity, Enum, HiddenProps, Property} from "@mikro-orm/core";
+import { Entity, Enum, HiddenProps, Property } from "@mikro-orm/core";
 import { BaseEntity } from "./base-entity";
 import { AuthType } from "../enum/auth-type";
 

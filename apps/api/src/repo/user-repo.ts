@@ -6,8 +6,14 @@ export class UserRepo extends BaseRepo<UserEntity> {
     super(UserEntity);
   }
 
-  async findOneWithPassword(filter: Partial<UserEntity>): Promise<UserEntity | undefined> {
-    return (await this.entityManager.findOne(UserEntity, filter, {populate: ["password"]})) ?? undefined;
+  async findOneWithPassword(
+    filter: Partial<UserEntity>,
+  ): Promise<UserEntity | undefined> {
+    return (
+      (await this.entityManager.findOne(UserEntity, filter, {
+        populate: ["password"],
+      })) ?? undefined
+    );
   }
 }
 

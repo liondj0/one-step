@@ -1,6 +1,6 @@
 import { BaseEntity } from "../entity/base-entity";
 import { EntityManager, RequestContext } from "@mikro-orm/postgresql";
-import {DeepPartial} from "../types/deep-partial";
+import { DeepPartial } from "../types/deep-partial";
 
 export abstract class BaseRepo<Entity extends BaseEntity> {
   protected constructor(private entity: { new (): Entity }) {}

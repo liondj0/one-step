@@ -158,7 +158,9 @@ export default function Main() {
       </View>
       <View className={`my-8`}>
         <View className={`mb-4`}>
-          <Text className={`text-forest text-xl`}>Today{"'"}s Side Quests ✨</Text>
+          <Text className={`text-forest text-xl`}>
+            Today{"'"}s Side Quests ✨
+          </Text>
         </View>
         <View className={`bg-white flex-1 rounded-2xl p-6`}>
           {data?.sideQuests?.map((sideQuest, index) => (
@@ -168,7 +170,9 @@ export default function Main() {
               item={sideQuest}
             />
           ))}
-          <View className={`flex flex-row items-center justify-center mt-4 p-3 rounded-xl overflow-hidden`}>
+          <View
+            className={`flex flex-row items-center justify-center mt-4 p-3 rounded-xl overflow-hidden`}
+          >
             <LinearGradient
               colors={[`${colors.sunbeam}3F`, `${colors.peach}3F`]}
               start={{ x: 0.3, y: 0.3 }}
@@ -176,7 +180,9 @@ export default function Main() {
               locations={[0, 0.75]}
               style={StyleSheet.absoluteFill}
             />
-            <Text className={`text-center`}>🌱If you get the time, no pressure</Text>
+            <Text className={`text-center`}>
+              🌱If you get the time, no pressure
+            </Text>
           </View>
         </View>
       </View>
