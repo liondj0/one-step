@@ -10,7 +10,7 @@ export class GroupPostEntity extends BaseEntity {
   @ManyToOne({entity: () => GroupEntity, fieldName: 'groupId'})
   group!: Rel<GroupEntity>;
 
-  @ManyToOne({entity: () => UserEntity, fieldName: 'userId'})
+  @ManyToOne({entity: () => UserEntity, fieldName: 'userId', eager: true})
   user!: Rel<UserEntity>;
 
   @Property({ type: 'text'})

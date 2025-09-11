@@ -35,3 +35,16 @@ export const createGroupPost = async (groupId: string, params: CreateGroupPostDt
   groupPost.message = params.message;
   return groupPostRepo().save(groupPost);
 }
+
+export const updateGroupPost = async (postId: string, params: CreateGroupPostDto) => {
+  const groupPost = await groupPostRepo().findOne({id: postId});
+  if(!groupPost || groupPost.user.id !== getUserInSession().id) throw new NotFoundError(`Group post ${postId} not found`)
+  groupPost.message = params.message;
+  return groupPostRepo().save(groupPost);
+}
+
+export const deleteGroupPost = async (postId: string) => {
+  const groupPost = await groupPostRepo().findOne({id: postId});
+  if(!groupPost || groupPost.user.id !== getUserInSession().id) throw new NotFoundError(`Group post ${postId} not found`)
+  return groupPostRepo().delete(groupPost);
+}

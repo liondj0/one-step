@@ -13,7 +13,7 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
     return this.entityManager.findOne(this.entity, { id });
   }
 
-  findOne(filter: DeepPartial<Entity>) {
+  findOne(filter: DeepPartial<Entity>): Promise<Entity | undefined> {
     return this.entityManager.findOne(this.entity, filter);
   }
 
