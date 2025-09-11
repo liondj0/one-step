@@ -22,10 +22,11 @@ export const signup = async (data: SignupData) => {
 };
 
 export const login = async (email: string, password: string) => {
-  const existingUser = await userRepo().findOne({ email });
+  const existingUser = await userRepo().findOneWithPassword({ email });
   if (!existingUser?.password) {
     throw new UnauthorizedError("Invalid email or password");
   }
+
   const isPasswordValid = await hashUtil.compare(
     password,
     existingUser.password,
@@ -33,5 +34,6 @@ export const login = async (email: string, password: string) => {
   if (!isPasswordValid) {
     throw new UnauthorizedError("Invalid email or password");
   }
+
   return createTokens(existingUser);
 };
