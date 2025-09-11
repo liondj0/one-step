@@ -25,6 +25,18 @@ export const createGroup = async (params: CreateGroupDto) => {
   return group;
 };
 
+
+export const getGroupById = async (id: string) => {
+  const userInGroup = await userInGroupRepo().findOne({group: {id}, user: {id: getUserInSession().id}});
+  if (!userInGroup) throw new NotFoundError(`Group ${id} not found`);
+  return userInGroup.group;
+}
+
+export const getGroupPosts = async (groupId: string) => {
+  await getGroupById(groupId);
+  return groupPostRepo().getPostsForGroupId(groupId);
+}
+
 export const createGroupPost = async (groupId: string, params: CreateGroupPostDto) => {
   const user = getUserInSession();
   const userInGroup = await userInGroupRepo().findOne({group: {id: groupId}, user: {id: user.id}});

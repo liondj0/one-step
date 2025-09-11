@@ -3,7 +3,14 @@ import { BaseController } from "./base-controller";
 import { type EndpointContext } from "../types/server";
 import { authMiddleware } from "../util/middleware/auth-util";
 import { createGroupSchema } from "@one-step/common/dto/group/create-group-dto";
-import {createGroup, createGroupPost, deleteGroupPost, updateGroupPost} from "../service/group-service";
+import {
+  createGroup,
+  createGroupPost,
+  deleteGroupPost,
+  getGroupById,
+  getGroupPosts,
+  updateGroupPost
+} from "../service/group-service";
 import { Transactional } from "../util/middleware/transaction-util";
 import { groupRepo } from "../repo/group-repo";
 import { getUserInSession } from "../util/session-util";
@@ -26,6 +33,20 @@ export class GroupController extends BaseController {
   async createGroup(context: EndpointContext) {
     const body = createGroupSchema.parse(await context.req.json());
     return await createGroup(body);
+  }
+
+  @GET("/:groupId")
+  @USE(authMiddleware)
+  async getGroup(context: EndpointContext) {
+    return getGroupById(context.req.param("groupId"))
+  }
+
+  @GET("/:groupId/posts")
+  @USE(authMiddleware)
+  @Transactional()
+  async getGroupPosts(context: EndpointContext) {
+    const groupId = context.req.param("groupId");
+    return await getGroupPosts(groupId);
   }
 
   @POST("/:groupId/posts")

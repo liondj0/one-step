@@ -8,6 +8,9 @@ export class GroupPostRepo extends BaseRepo<GroupPostEntity> {
     super(GroupPostEntity);
   }
 
+  getPostsForGroupId(groupId: string) {
+    return this.entityManager.find(GroupPostEntity, {group: {id: groupId}});
+  }
 
 }
 

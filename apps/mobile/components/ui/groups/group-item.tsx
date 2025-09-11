@@ -3,12 +3,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Group } from "@one-step/common/dto/group/group";
 import { forwardRef, Ref, useState } from "react";
 import * as Haptics from "expo-haptics";
+import {router} from "expo-router";
 
 type GroupCardProps = {
   group: Group;
   lastActive: string; // e.g., "2 hours ago"
   isFavorite?: boolean;
-  onPress?: () => void;
   onToggleFavorite?: () => void;
   index: number;
 };
@@ -65,7 +65,6 @@ function GroupCard(
     group,
     lastActive,
     isFavorite = false,
-    onPress,
     onToggleFavorite,
     index,
   }: GroupCardProps,
@@ -84,7 +83,7 @@ function GroupCard(
     : "bg-peach/30 border-peach/60";
   return (
     <Pressable
-      onPress={onPress}
+      onPress={()  => router.push(`/groups/${group.id}`)}
       className={`rounded-2xl bg-white/95 px-4 py-4 mb-4 mx-1 shadow-2xl border-l-4 ${borderLeftColors[index % 4]}`}
       android_ripple={{ color: "#00000010" }}
       style={{
