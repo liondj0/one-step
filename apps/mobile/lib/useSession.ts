@@ -10,7 +10,6 @@ export function useSession() {
   const [user, setUser] = useState<User>();
 
   const load = useCallback(async () => {
-    console.log(`load called`);
     const onboarding = !!(await storage.get(StorageKeys.ONBOARDING_COMPLETED));
     setOnboardingCompleted(onboarding);
 
