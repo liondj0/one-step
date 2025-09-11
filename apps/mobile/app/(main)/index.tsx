@@ -132,7 +132,7 @@ export default function Main() {
           </Button>
         )}
       </View>
-      <View className={`my-8`}>
+      <View className={`mt-8`}>
         <View>
           <Text className={`text-forest text-xl`}>Meal Check-ins 🍽️</Text>
         </View>
@@ -140,7 +140,7 @@ export default function Main() {
           {data?.meals?.map((meal, index) => (<MealLogItem key={index} item={meal} onPress={() => updateMealLog(index)} />))}
         </View>
       </View>
-      <View className={`my-8`}>
+      <View className={`mt-8`}>
         <View className={`mb-4`}>
           <Text className={`text-forest text-xl`}>Today{"'"}s Routine ✨</Text>
         </View>
