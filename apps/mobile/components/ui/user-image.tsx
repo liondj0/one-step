@@ -7,13 +7,15 @@ import React from "react";
 export const UserImage = ({
   user,
   className,
+  textClassName
 }: {
   user: User;
-  className: string;
+  className?: string;
+  textClassName?: string;
 }) => {
   return (
     <View
-      className={`h-10 w-10 rounded-full flex items-center justify-center overflow-hidden ${className}`}
+      className={`h-10 w-10 rounded-full flex items-center justify-center overflow-hidden ${className ?? ''}`}
     >
       <LinearGradient
         colors={[colors.sunbeam, colors.peach]}
@@ -22,7 +24,7 @@ export const UserImage = ({
         locations={[0, 0.75]}
         style={StyleSheet.absoluteFill}
       />
-      <Text className={`text-lg text-ink uppercase`}>
+      <Text className={`text-lg text-ink uppercase ${textClassName ?? ''}`}>
         {user.firstName[0]}
         {user.lastName[0]}
       </Text>

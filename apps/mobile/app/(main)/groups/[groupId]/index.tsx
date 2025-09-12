@@ -31,7 +31,7 @@ export default function GroupFeed() {
     title: <TwoLineTitle title={groupName ?? "Group"} subTitle={`Feed`} />,
     right: (
       <View className={`ml-auto flex-row pr-6`}>
-        <Pressable className={`mr-4`}>
+        <Pressable className={`mr-4`} onPress={() => router.push(`/groups/${groupId}/new-post`)}>
           <MaterialCommunityIcons
             name={"plus"}
             color={colors.dustysky}
