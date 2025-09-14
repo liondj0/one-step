@@ -8,20 +8,22 @@ type GroupPostItemProps = { post: GroupPost };
 
 const GroupPostItem = ({ post }: GroupPostItemProps, ref: Ref<View>) => {
   return (
-    <Pressable ref={ref} className={`rounded-2xl shadow-lg p-4 bg-white mb-6`}>
-      <View className="flex flex-row items-center">
-        <UserImage user={post.user} className={``} />
-        <View className={`ml-4`}>
-          <Text className={`text-base text-ink`}>
-            {post.user.firstName} {post.user.lastName}
-          </Text>
-          <Text className={`text-md text-dustysky`}>
-            {dateUtil.formatDistance(post.createdAt)}
-          </Text>
+    <View className={`rounded-2xl shadow-lg p-4 bg-white mb-6`}>
+      <Pressable ref={ref}>
+        <View className="flex flex-row items-center">
+          <UserImage user={post.user} className={``} />
+          <View className={`ml-4`}>
+            <Text className={`text-base text-ink`}>
+              {post.user.firstName} {post.user.lastName}
+            </Text>
+            <Text className={`text-md text-dustysky`}>
+              {dateUtil.formatDistance(post.createdAt)}
+            </Text>
+          </View>
         </View>
-      </View>
-      <Text className={`py-6`}>{post.message}</Text>
-    </Pressable>
+        <Text className={`py-6`}>{post.message}</Text>
+      </Pressable>
+    </View>
   );
 };
 

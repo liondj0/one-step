@@ -3,7 +3,7 @@ import { MaterialCommunityIcons} from "@expo/vector-icons";
 import {colors} from "@/util/colors";
 import {router, useLocalSearchParams} from "expo-router";
 import {useHeaderHeight} from "@react-navigation/elements";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {groupApi} from "@/lib/api/group-api";
 import {useSession} from "@/lib/useSession";
 import {UserImage} from "@/components/ui/user-image";
@@ -16,7 +16,8 @@ export default function NewPost() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const headerHeight = useHeaderHeight();
 
-  const {user, isSessionReady} = useSession()
+  const {user, isSessionReady} = useSession();
+  const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ["group-for-post", groupId],
@@ -30,6 +31,7 @@ export default function NewPost() {
   const mutation = useMutation({
     mutationFn: async () => {
       await groupPostApi.saveNewPost({message, groupId});
+      await queryClient.invalidateQueries({queryKey: ["posts", groupId ]})
       router.back();
     }
   })

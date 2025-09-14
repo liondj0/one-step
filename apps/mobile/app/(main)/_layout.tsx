@@ -24,7 +24,6 @@ export default function DrawerLayout() {
             paddingBottom: 20,
             height: 120,
           },
-
           headerTransparent: true,
           // Replace the header background with a blur + soft tint overlay
           headerBackground: () => (

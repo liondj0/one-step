@@ -9,10 +9,10 @@ export const groupPostApi = {
   ),
 
   getPostsForGroup: (id: string): Promise<GroupPost[]> => {
-    return groupPostApi.httpClient.get(`/?groupId=${id}`);
+    return groupPostApi.httpClient.get(`?groupId=${id}`);
   },
 
   saveNewPost: (post: CreateGroupPostDto): Promise<GroupPost> => {
-    return groupPostApi.httpClient.post(`/`, post);
+      return groupPostApi.httpClient.post(``, post);
   },
 };

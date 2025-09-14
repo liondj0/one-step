@@ -1,4 +1,4 @@
-import { View, ScrollView, Pressable } from "react-native";
+import {View, ScrollView, Pressable} from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export default function GroupFeed() {
   const headerHeight = useHeaderHeight();
 
   const query = useQuery({
-    queryKey: ["group", groupId],
+    queryKey: ["posts", groupId ],
     queryFn: async () => {
       const group = await groupApi.getGroupById(groupId);
       if (!group) router.back();
