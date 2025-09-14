@@ -1,5 +1,6 @@
 import { getAuthHeaders, httpClientBuilder } from "@/util/http-util";
 import { GroupPost } from "@one-step/common/dto/group/group-post";
+import { CreateGroupPostDto } from "@one-step/common/dto/group/create-group-post";
 
 export const groupPostApi = {
   httpClient: httpClientBuilder(
@@ -8,10 +9,10 @@ export const groupPostApi = {
   ),
 
   getPostsForGroup: (id: string): Promise<GroupPost[]> => {
-    return groupPostApi.httpClient.get(`/${id}/posts`);
+    return groupPostApi.httpClient.get(`/?groupId=${id}`);
   },
 
-  saveNewPost: (id: string, post: Partial<GroupPost>): Promise<GroupPost> => {
-    return groupPostApi.httpClient.post(`/${id}/posts`, post);
+  saveNewPost: (post: CreateGroupPostDto): Promise<GroupPost> => {
+    return groupPostApi.httpClient.post(`/`, post);
   },
 };

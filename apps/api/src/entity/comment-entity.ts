@@ -3,7 +3,7 @@ import { BaseEntity } from "./base-entity";
 import { GroupPostEntity } from "./group-post-entity";
 import { UserEntity } from "./user-entity";
 
-@Entity()
+@Entity({ tableName: "comments"})
 export class CommentEntity extends BaseEntity {
   @ManyToOne({ entity: () => GroupPostEntity, fieldName: "postId" })
   post!: Rel<GroupPostEntity>;

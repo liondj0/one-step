@@ -29,7 +29,7 @@ export default function NewPost() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      await groupPostApi.saveNewPost(groupId, {message});
+      await groupPostApi.saveNewPost({message, groupId});
       router.back();
     }
   })

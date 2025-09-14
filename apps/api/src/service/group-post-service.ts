@@ -5,6 +5,10 @@ import {NotFoundError} from "../util/error";
 import {GroupPostEntity} from "../entity/group-post-entity";
 import {getGroupById} from "./group-service";
 import { CreateGroupPostDto } from "@one-step/common/dto/group/create-group-post";
+import { AddReactionDto } from "@one-step/common/dto/group/add-reaction";
+import {ReactionEntity} from "../entity/reaction-entity";
+import {ReactionsGroupEntity} from "../entity/reactions-group-entity";
+import {reactionRepo} from "../repo/reaction-repo";
 
 export const getGroupPosts = async (params: { groupId: string }) => {
   await getGroupById(params.groupId);
@@ -12,15 +16,14 @@ export const getGroupPosts = async (params: { groupId: string }) => {
 };
 
 export const createGroupPost = async (
-  groupId: string,
   params: CreateGroupPostDto,
 ) => {
   const user = getUserInSession();
   const userInGroup = await userInGroupRepo().findOne({
-    group: { id: groupId },
+    group: { id: params.groupId },
     user: { id: user.id },
   });
-  if (!userInGroup) throw new NotFoundError(`Group ${groupId} not found`);
+  if (!userInGroup) throw new NotFoundError(`Group ${params.groupId} not found`);
   const groupPost = new GroupPostEntity();
   groupPost.group = userInGroup.group;
   groupPost.user = userInGroup.user;
@@ -45,3 +48,12 @@ export const deleteGroupPost = async (postId: string) => {
     throw new NotFoundError(`Group post ${postId} not found`);
   return groupPostRepo().delete(groupPost);
 };
+
+export const addReaction = async (params: AddReactionDto) => {
+  const user = getUserInSession();
+  const reaction = new ReactionEntity();
+  reaction.user = user;
+  reaction.emoji = params.emoji;
+  reaction.reactionsGroup = new ReactionsGroupEntity({id: params.reactionGroupId});
+  return reactionRepo().upsert(reaction);
+}
