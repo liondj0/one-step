@@ -6,13 +6,13 @@ import {
   addReaction,
   createGroupPost,
   deleteGroupPost,
-  getGroupPosts,
+  getGroupPosts, removeReaction,
   updateGroupPost,
 } from "../service/group-post-service";
 import { Transactional } from "../util/middleware/transaction-util";
-import { createGroupPostSchema } from "@one-step/common/dto/group/create-group-post";
+import { createGroupPostSchema } from "packages/common/dto/post/create-group-post";
 import {BadRequestError} from "../util/error";
-import { addReactionDtoSchema } from "@one-step/common/dto/group/add-reaction";
+import { addReactionDtoSchema } from "packages/common/dto/reactions/add-reaction";
 
 export class GroupPostController extends BaseController {
   constructor() {
@@ -61,5 +61,12 @@ export class GroupPostController extends BaseController {
   async addReaction(context: EndpointContext) {
     const body = addReactionDtoSchema.parse(await context.req.json());
     return await addReaction(body);
+  }
+
+  @DELETE("/:postId/reactions/:reactionId")
+  @USE(authMiddleware)
+  @Transactional()
+  async deleteReaction(context: EndpointContext) {
+    return await removeReaction(context.req.param("reactionId"));
   }
 }

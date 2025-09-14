@@ -14,9 +14,9 @@ export class ReactionEntity extends BaseEntity {
   @ManyToOne({entity: () => UserEntity, fieldName: "userId"})
   user!: UserEntity;
 
-  @Formula("user.name")
-  userName!: string;
+  @Formula((alias) => `${alias}."userId"`)
+  userId!: string;
 
-  @ManyToOne({entity: () => ReactionsGroupEntity, fieldName: "reactionsGroupId"})
+  @ManyToOne({entity: () => ReactionsGroupEntity, fieldName: "reactionsGroupId", eager: false})
   reactionsGroup!: Rel<ReactionsGroupEntity>;
 }

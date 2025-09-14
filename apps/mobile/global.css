@@ -56,15 +56,15 @@
    BADGES
    ========================= */
 .badge {
-    @apply px-2 py-0.5 rounded-full text-xs font-semibold;
+    @apply px-2 py-0.5 rounded-full text-xs font-semibold border;
 }
 
 .badge-open {
-    @apply badge bg-sunbeam/30 text-ink/70 border border-sunbeam/60;
+    @apply badge bg-sunbeam/30 text-ink/70 border-sunbeam/60;
 }
 
 .badge-invite {
-    @apply badge bg-peach/20 text-ink/70 border border-peach/40;
+    @apply badge bg-peach/20 text-ink/70 border-peach/40;
 }
 
 /* =========================

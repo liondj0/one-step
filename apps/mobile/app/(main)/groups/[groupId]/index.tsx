@@ -51,7 +51,7 @@ export default function GroupFeed() {
   });
 
   return (
-    <View style={{ flex: 1 }} className={`px-6 bg-paper`}>
+    <View style={{ flex: 1 }} className={`bg-paper`}>
       <ScrollView
         contentContainerStyle={{
           paddingTop: headerHeight,
@@ -59,9 +59,9 @@ export default function GroupFeed() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View className={`flex mt-6`}>
+        <View className={`flex px-6 mt-6`}>
           {query.data?.posts.map((post, index) => (
-            <GroupPostItem key={index} post={post} />
+            <GroupPostItem key={index} post={post} groupId={groupId} />
           ))}
         </View>
       </ScrollView>

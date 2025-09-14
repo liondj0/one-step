@@ -1,7 +1,7 @@
 import { BaseRepo } from "./base-repo";
 import { UserInGroupEntity } from "../entity/user-in-group-entity";
 import { DeepPartial } from "../types/deep-partial";
-import { FilterQuery, FindOneOptions } from "@mikro-orm/core";
+import { FilterQuery } from "@mikro-orm/core";
 
 export class UserInGroupRepo extends BaseRepo<UserInGroupEntity> {
   constructor() {
