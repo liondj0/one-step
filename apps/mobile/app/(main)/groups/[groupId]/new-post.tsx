@@ -8,6 +8,7 @@ import {groupApi} from "@/lib/api/group-api";
 import {useSession} from "@/lib/useSession";
 import {UserImage} from "@/components/ui/user-image";
 import {useState} from "react";
+import {groupPostApi} from "@/lib/api/group-post-api";
 
 
 export default function NewPost() {
@@ -28,7 +29,7 @@ export default function NewPost() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      await groupApi.saveNewPost(groupId, {message});
+      await groupPostApi.saveNewPost(groupId, {message});
       router.back();
     }
   })

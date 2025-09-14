@@ -9,6 +9,7 @@ import React from "react";
 import GroupPostItem from "@/components/ui/groups/group-post-item";
 import { useHeaderAction } from "@/lib/use-header-actions";
 import { TwoLineTitle } from "@/components/ui/drawer/two-line-title";
+import {groupPostApi} from "@/lib/api/group-post-api";
 
 export default function GroupFeed() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
@@ -19,7 +20,7 @@ export default function GroupFeed() {
     queryFn: async () => {
       const group = await groupApi.getGroupById(groupId);
       if (!group) router.back();
-      const posts = await groupApi.getPostsForGroup(groupId);
+      const posts = await groupPostApi.getPostsForGroup(groupId);
       return { group, posts };
     },
   });
