@@ -5,17 +5,23 @@ import { Pressable, Text, View } from "react-native";
 import { UserImage } from "@/components/ui/user-image";
 import Reactions from "@/components/reactions";
 
-type GroupPostItemProps = { post: GroupPost, groupId: string };
+type GroupPostItemProps = { post: GroupPost; groupId: string };
 
-const GroupPostItem = ({ post, groupId }: GroupPostItemProps, ref: Ref<View>) => {
+const GroupPostItem = (
+  { post, groupId }: GroupPostItemProps,
+  ref: Ref<View>,
+) => {
   return (
-    <View style={{
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 4 }, // lower vertical offset
-      shadowOpacity: 0.15,                   // lighter than 0.25
-      shadowRadius: 8,                       // softer blur
-      elevation: 4,                          // harmless on iOS, needed if you also want Android
-    }} className={`rounded-2xl p-4 bg-white mb-6`}>
+    <View
+      style={{
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 }, // lower vertical offset
+        shadowOpacity: 0.15, // lighter than 0.25
+        shadowRadius: 8, // softer blur
+        elevation: 4, // harmless on iOS, needed if you also want Android
+      }}
+      className={`rounded-2xl p-4 bg-white mb-6`}
+    >
       <Pressable ref={ref}>
         <View className="flex flex-row items-center">
           <UserImage user={post.user} className={``} />

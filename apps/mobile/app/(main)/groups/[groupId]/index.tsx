@@ -1,4 +1,4 @@
-import {View, ScrollView, Pressable} from "react-native";
+import { View, ScrollView, Pressable } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
@@ -9,14 +9,14 @@ import React from "react";
 import GroupPostItem from "@/components/ui/groups/group-post-item";
 import { useHeaderAction } from "@/lib/use-header-actions";
 import { TwoLineTitle } from "@/components/ui/drawer/two-line-title";
-import {groupPostApi} from "@/lib/api/group-post-api";
+import { groupPostApi } from "@/lib/api/group-post-api";
 
 export default function GroupFeed() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const headerHeight = useHeaderHeight();
 
   const query = useQuery({
-    queryKey: ["posts", groupId ],
+    queryKey: ["posts", groupId],
     queryFn: async () => {
       const group = await groupApi.getGroupById(groupId);
       if (!group) router.back();
@@ -32,7 +32,10 @@ export default function GroupFeed() {
     title: <TwoLineTitle title={groupName ?? "Group"} subTitle={`Feed`} />,
     right: (
       <View className={`ml-auto flex-row pr-6`}>
-        <Pressable className={`mr-4`} onPress={() => router.push(`/groups/${groupId}/new-post`)}>
+        <Pressable
+          className={`mr-4`}
+          onPress={() => router.push(`/groups/${groupId}/new-post`)}
+        >
           <MaterialCommunityIcons
             name={"plus"}
             color={colors.dustysky}

@@ -6,12 +6,13 @@ import {
   addReaction,
   createGroupPost,
   deleteGroupPost,
-  getGroupPosts, removeReaction,
+  getGroupPosts,
+  removeReaction,
   updateGroupPost,
 } from "../service/group-post-service";
 import { Transactional } from "../util/middleware/transaction-util";
 import { createGroupPostSchema } from "packages/common/dto/post/create-group-post";
-import {BadRequestError} from "../util/error";
+import { BadRequestError } from "../util/error";
 import { addReactionDtoSchema } from "packages/common/dto/reactions/add-reaction";
 
 export class GroupPostController extends BaseController {
@@ -19,14 +20,13 @@ export class GroupPostController extends BaseController {
     super("/group-posts");
   }
 
-
   @GET("/")
   @USE(authMiddleware)
   @Transactional()
   async getGroupPosts(context: EndpointContext) {
     const groupId = context.req.query("groupId");
-    if(!groupId) throw new BadRequestError("groupId is required"  )
-    return await getGroupPosts({groupId});
+    if (!groupId) throw new BadRequestError("groupId is required");
+    return await getGroupPosts({ groupId });
   }
 
   @POST("/")
@@ -53,7 +53,6 @@ export class GroupPostController extends BaseController {
     const postId = context.req.param("postId");
     return await deleteGroupPost(postId);
   }
-
 
   @POST("/:postId/reactions")
   @USE(authMiddleware)

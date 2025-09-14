@@ -6,7 +6,7 @@ import { AppError } from "../../util/error";
 import { GroupController } from "../../controller/group-controller";
 import { BaseController } from "../../controller/base-controller";
 import { DailyActivityController } from "../../controller/daily-activity-controller";
-import {GroupPostController} from "../../controller/group-post-controller";
+import { GroupPostController } from "../../controller/group-post-controller";
 
 export class RestInit extends Init {
   constructor(private readonly __app: Server) {
@@ -54,12 +54,15 @@ export class RestInit extends Init {
   }
 
   private registerRouters() {
-    [AuthController, GroupController, DailyActivityController, GroupPostController].forEach(
-      (controller) => {
-        this.__app.route(
-          ...registerRouter(controller as { new (): BaseController }),
-        );
-      },
-    );
+    [
+      AuthController,
+      GroupController,
+      DailyActivityController,
+      GroupPostController,
+    ].forEach((controller) => {
+      this.__app.route(
+        ...registerRouter(controller as { new (): BaseController }),
+      );
+    });
   }
 }

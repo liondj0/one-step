@@ -15,14 +15,20 @@ export const groupPostApi = {
   },
 
   saveNewPost: (post: CreateGroupPostDto): Promise<GroupPost> => {
-      return groupPostApi.httpClient.post(``, post);
+    return groupPostApi.httpClient.post(``, post);
   },
 
-  addReaction: (postId: string, addReactionDto: AddReactionDto): Promise<ReactionsGroup> => {
+  addReaction: (
+    postId: string,
+    addReactionDto: AddReactionDto,
+  ): Promise<ReactionsGroup> => {
     return groupPostApi.httpClient.post(`/${postId}/reactions`, addReactionDto);
   },
 
-  removeReaction: (postId: string, reactionId: string): Promise<ReactionsGroup> => {
+  removeReaction: (
+    postId: string,
+    reactionId: string,
+  ): Promise<ReactionsGroup> => {
     return groupPostApi.httpClient.delete(`/${postId}/reactions/${reactionId}`);
   },
 };

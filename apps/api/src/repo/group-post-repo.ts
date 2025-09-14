@@ -7,7 +7,11 @@ export class GroupPostRepo extends BaseRepo<GroupPostEntity> {
   }
 
   getPostsForGroupId(groupId: string) {
-    return this.entityManager.find(GroupPostEntity, { group: { id: groupId } }, {orderBy: {createdAt: "DESC"}});
+    return this.entityManager.find(
+      GroupPostEntity,
+      { group: { id: groupId } },
+      { orderBy: { createdAt: "DESC" } },
+    );
   }
 }
 

@@ -3,10 +3,7 @@ import { BaseController } from "./base-controller";
 import { type EndpointContext } from "../types/server";
 import { authMiddleware } from "../util/middleware/auth-util";
 import { createGroupSchema } from "@one-step/common/dto/group/create-group-dto";
-import {
-  createGroup,
-  getGroupById,
-} from "../service/group-service";
+import { createGroup, getGroupById } from "../service/group-service";
 import { Transactional } from "../util/middleware/transaction-util";
 import { groupRepo } from "../repo/group-repo";
 import { getUserInSession } from "../util/session-util";
@@ -35,5 +32,4 @@ export class GroupController extends BaseController {
   async getGroup(context: EndpointContext) {
     return getGroupById(context.req.param("groupId"));
   }
-
 }

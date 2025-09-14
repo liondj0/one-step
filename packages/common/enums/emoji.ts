@@ -1,5 +1,3 @@
-
-
 export enum Emoji {
   HEART = "❤️",
   SPARKLES = "✨",
