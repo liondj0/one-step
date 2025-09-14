@@ -65,7 +65,6 @@ export const addReaction = async (params: AddReactionDto) => {
 export const removeReaction = async (reactionId: string) => {
   const reaction = await reactionRepo().findOne({ id: reactionId });
   if(!reaction) throw new NotFoundError(`Reaction ${reactionId} not found`);
-  console.log({reaction})
   await reactionRepo().nativeDelete(reaction.id)
   return await reactionsGroupRepo().findOne({ id: reaction.reactionsGroup.id });
 }
