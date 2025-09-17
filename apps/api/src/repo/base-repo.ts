@@ -1,5 +1,6 @@
 import { BaseEntity } from "../entity/base-entity";
 import { EntityManager, RequestContext } from "@mikro-orm/postgresql";
+import { DeepPartial } from "../types/deep-partial";
 
 export abstract class BaseRepo<Entity extends BaseEntity> {
   protected constructor(private entity: { new (): Entity }) {}
@@ -8,11 +9,11 @@ export abstract class BaseRepo<Entity extends BaseEntity> {
     return RequestContext.getEntityManager() as EntityManager;
   }
 
-  findById(id: string): Promise<Entity> {
+  findById(id: string) {
     return this.entityManager.findOne(this.entity, { id });
   }
 
-  findOne(filter: Partial<Entity>): Promise<Entity> {
+  findOne(filter: DeepPartial<Entity>): Promise<Entity | undefined> {
     return this.entityManager.findOne(this.entity, filter);
   }
 

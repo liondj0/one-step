@@ -35,8 +35,8 @@ module.exports = {
         '6xl': ['60px'],
       },
       boxShadow: {
-        card: "0 4px 20px rgba(0,0,0,0.4)"
-      }
+        strong: "0 6px 12px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.15)",
+      },
     }
   },
   plugins: [],

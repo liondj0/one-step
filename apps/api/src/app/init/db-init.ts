@@ -37,7 +37,7 @@ export class DbInit extends Init {
       password: env.database.password,
       schema: env.database.schema,
       driver: PostgreSqlDriver,
-      debug: ["query"],
+      // debug: ["query"],
     });
     this.app.use(async (context, next) => {
       const entityManager = this.orm.em.fork();

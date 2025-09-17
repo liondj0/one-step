@@ -13,4 +13,7 @@ export const groupApi = {
   saveGroup: (createGroupDto: CreateGroupDto) => {
     return groupApi.httpClient.post<Group, CreateGroupDto>(``, createGroupDto);
   },
+  getGroupById: (id: string): Promise<Group> => {
+    return groupApi.httpClient.get(`/${id}`);
+  },
 };

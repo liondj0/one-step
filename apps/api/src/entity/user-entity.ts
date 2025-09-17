@@ -1,4 +1,4 @@
-import { Entity, Enum, Property } from "@mikro-orm/core";
+import { Entity, Enum, HiddenProps, Property } from "@mikro-orm/core";
 import { BaseEntity } from "./base-entity";
 import { AuthType } from "../enum/auth-type";
 
@@ -24,6 +24,6 @@ export class UserEntity extends BaseEntity {
   @Enum({ items: () => AuthType, nativeEnumName: "auth_type" })
   authType!: AuthType;
 
-  @Property({ nullable: true })
+  @Property({ nullable: true, hidden: true })
   password?: string;
 }

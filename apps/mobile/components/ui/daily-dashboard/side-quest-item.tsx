@@ -1,9 +1,9 @@
 import { SideQuest } from "@one-step/common/dto/daily-dashboard/side-quest";
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { forwardRef, Ref } from "react";
-import {colors} from "@/util/colors";
-import {LinearGradient} from "expo-linear-gradient";
+import { colors } from "@/util/colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 type SideQuestItemProps = {
   item: SideQuest;

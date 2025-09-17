@@ -33,6 +33,5 @@ export const updateUsersActivityForDate = async (
   )
     throw new Error("Daily goal is required");
   Object.assign(existingActivity, updateData);
-  console.log(existingActivity);
   return dailyActivityRepo().save(existingActivity);
 };
